@@ -44,7 +44,7 @@ A pergunta passa a ser: *Existe uma ação de controle $u$ capaz de tornar a der
 Uma função $V(x)$ é uma CLF se, para todo $x \neq 0$:
 
 
-$$\inf_{u} \left\{ L_f V(x) + L_g V(x)u \right\} < 0$$
+$\inf_{u} \left\{ L_f V(x) + L_g V(x)u \right\} < 0$
 
 
 Esta formulação matemática permite projetar leis de controle não-lineares universais (como a famosa Fórmula de Sontag) e é a base da otimização em tempo real via Programação Quadrática (QP) utilizada no seu projeto de ACC.
