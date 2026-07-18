@@ -25,6 +25,7 @@ A dinâmica do sistema é descrita pelas equações diferenciais ordinárias:
 <div align="center">
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20%5Cdot%7BD%7D%20%3D%20V_l%20-%20V_f">
 </div>
+<p>
 
 Reescrevendo na forma afim padrão para controle $\dot{x} = f(x) + g(x)u$:
 
