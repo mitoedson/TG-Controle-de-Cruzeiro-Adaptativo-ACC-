@@ -47,11 +47,11 @@ O objetivo de desempenho é fazer com que a velocidade do veículo $$( V_f )$$ r
 ### 2.1. Derivadas de Lie da CLF
 
 Para construir a restrição linear no QP, calculamos as derivadas de Lie:
-
+<p>
 <div align="center">
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20L_fV%20%3D%20%5Cnabla%20V%20%5Ccdot%20f(x)%20%3D%202(V_f%20-%20V_d)%20%5Ccdot%20%5Cleft(%20-%5Cfrac%7BF_r(V_f)%7D%7Bm%7D%20%5Cright)">
 </div>
-
+<p>
 <div align="center">
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20L_gV%20%3D%20%5Cnabla%20V%20%5Ccdot%20g(x)%20%3D%202(V_f%20-%20V_d)%20%5Ccdot%20%5Cleft(%20%5Cfrac%7B1%7D%7Bm%7D%20%5Cright)">
 </div>
@@ -59,7 +59,7 @@ Para construir a restrição linear no QP, calculamos as derivadas de Lie:
 ### 2.2. Restrição de Estabilidade (CLF)
 
 A condição de estabilidade exponencial é imposta pela desigualdade:
-
+<p>
 <div align="center">
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20L_fV%20%2B%20L_gV%20%5Ccdot%20u%20%5Cleq%20-c_V%20V(x)%20%2B%20%5Cdelta">
 </div>
