@@ -3,7 +3,7 @@
 
 ## Objetivo da CBF
 
-Enquanto a CLF quer levar o estado para um **ponto** específico (\( V_f = V_d \)), a CBF quer manter o estado **dentro de uma região** segura. 
+Enquanto a CLF quer levar o estado para um **ponto** específico ($$( V_f = V_d )$$), a CBF quer manter o estado **dentro de uma região** segura. 
 No ACC, a região segura é definida pela distância entre os carros: ela nunca pode ser negativa (colisão) nem menor que um limite seguro.
 
 ## 1: Definindo a Região Segura (O Conjunto $$( \mathcal{C} )$$)
