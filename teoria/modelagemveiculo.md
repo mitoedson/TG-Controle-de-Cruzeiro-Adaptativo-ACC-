@@ -26,7 +26,7 @@ A dinâmica do sistema é descrita pelas equações diferenciais ordinárias:
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20%5Cdot%7BD%7D%20%3D%20V_l%20-%20V_f">
 </div>
 
-Reescrevendo na forma afim padrão para controle \( \dot{x} = f(x) + g(x)u \):
+Reescrevendo na forma afim padrão para controle $\dot{x} = f(x) + g(x)u$:
 
 <div align="center">
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20f(x)%20%3D%20%5Cbegin%7Bbmatrix%7D%20-%5Cfrac%7BF_r(V_f)%7D%7Bm%7D%20%5C%5C%20V_l%20-%20V_f%20%5Cend%7Bbmatrix%7D%2C%20%5Cquad%20g(x)%20%3D%20%5Cbegin%7Bbmatrix%7D%20%5Cfrac%7B1%7D%7Bm%7D%20%5C%5C%200%20%5Cend%7Bbmatrix%7D">
