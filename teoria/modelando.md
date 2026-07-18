@@ -83,16 +83,9 @@ O ponto de equilíbrio ocorre quando as derivadas se anulam ($\dot{V}_f = 0$ e $
 ### 6.2. Passo 2: Matriz Jacobiana (para análise local - Método Indireto)
 Se quiséssemos analisar a estabilidade local (próximo ao equilíbrio), calcularíamos a matriz Jacobiana $A = \frac{\partial f}{\partial x}$:
 
-$$ 
-A = \begin{bmatrix} 
-\dfrac{\partial \dot{V}_f}{\partial V_f} & \dfrac{\partial \dot{V}_f}{\partial D} \\[1.2ex]
-\dfrac{\partial \dot{D}}{\partial V_f} & \dfrac{\partial \dot{D}}{\partial D}
-\end{bmatrix}
-= \begin{bmatrix} 
--\dfrac{f_1 + 2f_2 V_f}{m} & 0 \\[1.2ex]
--1 & 0
-\end{bmatrix} 
-$$
+<div align="center">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20A%20%3D%20%5Cbegin%7Bbmatrix%7D%20-%5Cfrac%7Bf_1%20%2B%202f_2%20V_f%7D%7Bm%7D%20%26%200%20%5C%5C%20-1%20%26%200%20%5Cend%7Bbmatrix%7D">
+</div>
 
 **Interpretação:** Como a matriz é triangular inferior, os autovalores são os elementos da diagonal principal. Isso mostra que a estabilidade local varia com a velocidade $V_f$, comprovando a necessidade de um controle não-linear (Método Direto).
 
