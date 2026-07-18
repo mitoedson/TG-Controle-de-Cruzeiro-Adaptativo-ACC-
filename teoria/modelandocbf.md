@@ -14,8 +14,8 @@ Para aplicar a CBF, precisamos definir matematicamente o que é "seguro". Defini
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20%5Cmathcal%7BC%7D%20%3D%20%5C%7B%20x%20%5Cin%20%5Cmathbb%7BR%7D%5E2%20%5C%2C%20%7C%20%5C%2C%20h(x)%20%5Cgeq%200%20%5C%7D">
 </div>
 
-**A Função \( h(x) \) (A CBF candidata):**
-A função que define a fronteira da segurança no ACC é a distância relativa descontada do tempo de reação (\( \tau_h \)):
+**A Função $$( h(x) )$$ (A CBF candidata):**
+A função que define a fronteira da segurança no ACC é a distância relativa descontada do tempo de reação $$\( \tau_h )$$):
 
 <div align="center">
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20h(x)%20%3D%20D%20-%20%5Ctau_h%20%5Ccdot%20V_f">
