@@ -9,8 +9,8 @@ Para descrever o sistema, definimos o vetor de estados $x \in \mathbb{R}^2$ como
 $$ x = [V_f, D]^T $$
 
 Onde:
-- **$V_f$** : Velocidade longitudinal do veículo controlado (seguidor) em $m/s$.
-- **$D$** : Distância relativa entre o veículo seguidor e o veículo líder em $m$.
+- **$V_f$** : Velocidade longitudinal do veículo controlado (seguidor) em m/s.
+- **$D$** : Distância relativa entre o veículo seguidor e o veículo líder em m.
 
 Além disso, consideramos as seguintes variáveis exógenas e parâmetros:
 - **$V_l$** : Velocidade do veículo líder ($m/s$), tratada como uma entrada externa (distúrbio).
