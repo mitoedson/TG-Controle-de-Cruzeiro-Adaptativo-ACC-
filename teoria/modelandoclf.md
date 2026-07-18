@@ -95,7 +95,7 @@ Substituindo $\dot{V}$ pela forma $L_fV + L_gV \cdot u$, obtemos a **restrição
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20L_fV%20%2B%20L_gV%20%5Ccdot%20u%20%5Cleq%20-c_V%20V">
 </div>
 
-Onde $c_V > 0$ é a **taxa de convergência**. Quanto maior o $c_V$, mais rápido o carro acelera/freia para atingir a velocidade desejada.
+Onde $c_V > 0$ é a **taxa de convergência**. Quanto maior o $c_V$, mais rápido o carro acelera/freia para atingir a velocidade desejada, e quanto menor o $c_V$, a aceleração é mais lenta. A taxa de convergência deve ser configurada para encontrar um valor intermediário. 
 
 
 ## Passo 6: A Relaxação ($\delta$) - O Compromisso com a Segurança
