@@ -27,8 +27,8 @@ Consideramos também as seguintes variáveis exógenas e parâmetros:
 - **$u$** : Força de tração/frenagem aplicada ao veículo (N) – esta é a nossa variável de controle.
 - **$m$** : Massa do veículo (kg).
 
-
 Portanto:
+
 $$ m \cdot \dot{V}_f = -F_r(V_f) + u $$
 
 Isolando a derivada da velocidade (aceleração):
