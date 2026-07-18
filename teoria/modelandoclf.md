@@ -126,4 +126,8 @@ Toda essa dedução matemática está implementada no seu script de Lie. Abra o 
 
 A Função de Lyapunov de Controle (CLF) foi definida como o quadrado do erro de velocidade, $V(e) = (V_f - V_d)^2$, assegurando que a função seja positiva definida e radialmente ilimitada. Calculando a derivada temporal e separando-a em $L_fV$ e $L_gV$, obteve-se a condição de estabilidade exponencial $L_fV + L_gV u \le -c_V V$. Para integrar esta condição ao QP e permitir a priorização da segurança, a restrição foi relaxada pela variável $\delta$, resultando na forma final $L_fV + L_gV u \le -c_V V + \delta$. Portanto, a CLF atua como um 'desejo' de desempenho que é temporariamente suspenso (via $\delta$) sempre que a segurança (CBF) está em risco.
 
+A relaxação $\delta$ permite que a derivada da CLF seja temporariamente positiva, o que, à primeira vista, violaria as condições clássicas do Teorema Direto de Lyapunov. Entretanto, essa violação é estritamente temporária e ocorre apenas quando a restrição de segurança (CBF) está ativa. A teoria de estabilidade entrada-estado (ISS) garante que, enquanto 
+$\delta$ for limitado e penalizado na função custo do QP, o erro de velocidade permanecerá uniformemente limitado. Assim que a situação de risco cessa, o QP força $\delta$ a zero, restaurando a condição de estabilidade exponencial <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20L_fV%20%2B%20L_gV%20%5Ccdot%20u%20%5Cleq%20-c_V%20V">
+​ e garantindo a convergência da velocidade para o valor desejado.
+
 
