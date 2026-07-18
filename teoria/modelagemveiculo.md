@@ -38,7 +38,7 @@ Reescrevendo na forma afim padrão para controle $\dot{x} = f(x) + g(x)u$:
 
 ## 2. Função de Lyapunov de Controle (CLF) - Desempenho
 
-O objetivo de desempenho é fazer com que a velocidade do veículo \( V_f \) rastreie a velocidade desejada \( V_d \). Define-se a CLF como o quadrado do erro de rastreamento:
+O objetivo de desempenho é fazer com que a velocidade do veículo $$( V_f )$$ rastreie a velocidade desejada \( V_d \). Define-se a CLF como o quadrado do erro de rastreamento:
 
 <div align="center">
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20V(x)%20%3D%20(V_f%20-%20V_d)%5E2">
