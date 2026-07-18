@@ -1,17 +1,12 @@
 # Modelando a Função de Barreira de Controle (CBF) para o ACC
 
-Este documento detalha, passo a passo, a dedução da **Control Barrier Function (CBF)** aplicada ao problema de Controle de Cruzeiro Adaptativo (ACC). O objetivo é mostrar como saímos da "distância de segurança" e chegamos na restrição matemática que "briga" com a CLF dentro do QP.
 
----
-
-## Objetivo da CBF (O "Espelho" da CLF)
+## Objetivo da CBF
 
 Enquanto a CLF quer levar o estado para um **ponto** específico (\( V_f = V_d \)), a CBF quer manter o estado **dentro de uma região** segura. 
 No ACC, a região segura é definida pela distância entre os carros: ela nunca pode ser negativa (colisão) nem menor que um limite seguro.
 
----
-
-## Passo 1: Definindo a Região Segura (O Conjunto \( \mathcal{C} \))
+## 1: Definindo a Região Segura (O Conjunto $$( \mathcal{C} )$$)
 
 Para aplicar a CBF, precisamos definir matematicamente o que é "seguro". Definimos o conjunto \( \mathcal{C} \) (safe set) como:
 
