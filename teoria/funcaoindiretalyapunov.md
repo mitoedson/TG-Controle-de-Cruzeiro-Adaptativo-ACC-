@@ -8,14 +8,6 @@ Assim, se conseguirmos mostrar que essa função é sempre positiva (exceto no p
 
 ## 2. Definição formal (Teorema de Lyapunov para Linearização):
 
-Claro! Vamos à definição formal do **Método Indireto de Lyapunov (Primeiro Método)**. 
-
-Entender isso é ótimo para o seu TCC porque você poderá justificar **por que você NÃO o usou** e **por que o Método Direto (que você está usando) é mais adequado** para o ACC com restrições de segurança.
-
----
-
-### 1. A Definição Formal (Teorema de Lyapunov para Linearização)
-
 Considere um sistema não-linear autônomo na forma:
 
 \[\dot{x} = f(x)\]
