@@ -67,7 +67,7 @@ Para encaixar no QP, separamos o que independe do controle ( $L_fh$ ) e o que mu
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20L_gh%20%3D%20-%5Ctau_h">
 </div>
 
-## 5. A Restrição da CBF no QP (A Desigualdade ($$ \geq ) $$)
+## 5. A Restrição da CBF no QP (A Desigualdade $$( \geq )$$)
 
 Substituindo $$( \dot{h} = L_fh + L_gh \cdot u )$$ na condição de invariância, obtemos a restrição final que será usada no QP:
 
