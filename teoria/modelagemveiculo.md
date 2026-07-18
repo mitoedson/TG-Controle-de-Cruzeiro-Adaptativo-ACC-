@@ -103,7 +103,7 @@ A condição para que a distância nunca se torne negativa (invariância do conj
 </div>
 <p>
 Onde:
-- $$( \gamma > 0 )$$: Parâmetro que ajusta a "agressividade" da barreira. Quanto maior, mais cedo o sistema começa a frear para evitar a violação da segurança.
+$$( \gamma > 0 )$$: Parâmetro que ajusta a "agressividade" da barreira. Quanto maior, mais cedo o sistema começa a frear para evitar a violação da segurança.
 
 <a href="modelandocbf.md">Ver modelagem do CBF.</a>
 
