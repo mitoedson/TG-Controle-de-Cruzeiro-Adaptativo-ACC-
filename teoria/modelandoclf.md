@@ -111,7 +111,7 @@ Se a restrição acima for muito rígida, pode não existir solução quando a s
 - Se $\delta > 0$: A CLF é relaxada. O carro **prioriza a segurança** (freia) em vez de seguir $V_d$. O QP minimiza $\delta^2$ com um peso altíssimo para que isso só aconteça em emergências.
 
 
-## Passo 7: Conexão Direta com o seu Código MATLAB (`LIE_2026.m`)
+## 7. Conexão Direta com o seu Código MATLAB (`LIE_2026.m`)
 
 Toda essa dedução matemática está implementada no seu script de Lie. Abra o arquivo `LIE_2026.m` e veja a correspondência:
 
@@ -122,10 +122,8 @@ Toda essa dedução matemática está implementada no seu script de Lie. Abra o 
 | $L_gV$ | `LgVacc = transpose(gradient(Vacc,[Vf,xr]))*g` | Calcula o coeficiente que multiplica o controle $u$. |
 
 
-## Resumo para o seu TCC (Como escrever esta análise)
+## 8. Conclusão
 
-> "A Função de Lyapunov de Controle (CLF) foi definida como o quadrado do erro de velocidade, $V(e) = (V_f - V_d)^2$, assegurando que a função seja positiva definida e radialmente ilimitada. Calculando a derivada temporal e separando-a em $L_fV$ e $L_gV$, obteve-se a condição de estabilidade exponencial $L_fV + L_gV u \le -c_V V$. Para integrar esta condição ao QP e permitir a priorização da segurança, a restrição foi relaxada pela variável $\delta$, resultando na forma final $L_fV + L_gV u \le -c_V V + \delta$. Portanto, a CLF atua como um 'desejo' de desempenho que é temporariamente suspenso (via $\delta$) sempre que a segurança (CBF) está em risco."
+A Função de Lyapunov de Controle (CLF) foi definida como o quadrado do erro de velocidade, $V(e) = (V_f - V_d)^2$, assegurando que a função seja positiva definida e radialmente ilimitada. Calculando a derivada temporal e separando-a em $L_fV$ e $L_gV$, obteve-se a condição de estabilidade exponencial $L_fV + L_gV u \le -c_V V$. Para integrar esta condição ao QP e permitir a priorização da segurança, a restrição foi relaxada pela variável $\delta$, resultando na forma final $L_fV + L_gV u \le -c_V V + \delta$. Portanto, a CLF atua como um 'desejo' de desempenho que é temporariamente suspenso (via $\delta$) sempre que a segurança (CBF) está em risco.
 
----
 
-**Próximo Passo:** Agora que a CLF está completamente destrinchada, quer que eu faça a mesma análise detalhada para a **CBF (Função de Barreira de Controle)**, mostrando como ela é o "espelho" da CLF e como as duas se equilibram dentro do QP?
