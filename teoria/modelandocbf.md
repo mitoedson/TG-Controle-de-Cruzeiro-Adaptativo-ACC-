@@ -21,13 +21,13 @@ A função que define a fronteira da segurança no ACC é a distância relativa 
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20h(x)%20%3D%20D%20-%20%5Ctau_h%20%5Ccdot%20V_f">
 </div>
 
-- Se \( h(x) > 0 \): Estamos seguros (distância folgada).
-- Se \( h(x) = 0 \): Estamos no limite da segurança (fronteira).
-- Se \( h(x) < 0 \): Violamos a segurança (colisão ou distância perigosa).
+- Se $$( h(x) > 0 )$$: Estamos seguros (distância folgada).
+- Se $$( h(x) = 0 )$$: Estamos no limite da segurança (fronteira).
+- Se $$( h(x) < 0 )$$: Violamos a segurança (colisão ou distância perigosa).
 
 ---
 
-## Passo 2: A Condição de Invariância (A "Regra de Ouro" da CBF)
+## 2. A Condição de Invariância
 
 Para garantir que o carro **nunca** saia da região segura ($$( h < 0 )$$), a teoria da CBF (baseada no Teorema de Nagumo) exige que, quando o carro estiver na fronteira ($$( h = 0 )$$), a derivada de $$( h )$$ não pode ser negativa (ou seja, não pode estar diminuindo ainda mais).
 
