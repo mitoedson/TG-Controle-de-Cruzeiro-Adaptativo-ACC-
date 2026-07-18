@@ -92,17 +92,9 @@ Se quiséssemos analisar a estabilidade local (próximo ao equilíbrio), calcula
 ### 6.3. Passo 3: Forma Afim para o QP ($\dot{x} = f(x) + g(x)u$)
 O controlador QP exige que o sistema esteja na forma afim (linear no controle $u$). Separando os termos:
 
-$$ 
-f(x) = \begin{bmatrix} 
--\dfrac{F_r(V_f)}{m} \\[1ex]
-V_l - V_f
-\end{bmatrix}, 
-\qquad 
-g(x) = \begin{bmatrix} 
-\dfrac{1}{m} \\[1ex]
-0
-\end{bmatrix} 
-$$
+<div align="center">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20f(x)%20%3D%20%5Cbegin%7Bbmatrix%7D%20-%5Cfrac%7BF_r(V_f)%7D%7Bm%7D%20%5C%5C%20V_l%20-%20V_f%20%5Cend%7Bbmatrix%7D%2C%20%5Cqquad%20g(x)%20%3D%20%5Cbegin%7Bbmatrix%7D%20%5Cfrac%7B1%7D%7Bm%7D%20%5C%5C%200%20%5Cend%7Bbmatrix%7D">
+</div>
 
 Esta é exatamente a estrutura utilizada no seu script `LIE_2026.m` para calcular as derivadas de Lie:
 
