@@ -93,7 +93,8 @@ A = \begin{bmatrix}
 \dfrac{\partial \dot{D}}{\partial V_f} & \dfrac{\partial \dot{D}}{\partial D}
 \end{bmatrix}
 = \begin{bmatrix} 
--\dfrac{f_1 + 2f_2 V_f}{m} & 0 \\[1.2ex]
+-\dfrac{f_1 + 2f_2 V_f}{m} & 0 
+\\ [1.2ex]
 -1 & 0
 \end{bmatrix} 
 $$
