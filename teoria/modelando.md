@@ -23,8 +23,8 @@ As forças atuantes são:
 2. **Força de Arrasto Aerodinâmico ($F_r$)**: Sempre atua contra o movimento (sentido negativo).
 
 Consideramos também as seguintes variáveis exógenas e parâmetros:
-- **$V_l$** : Velocidade do veículo líder (m/s), tratada como uma entrada externa (distúrbio).
-- **$u$** : Força de tração/frenagem aplicada ao veículo (N) – esta é a nossa variável de controle.
+- **$V_l$** : Velocidade do veículo líder (m/s), a entrada externa (distúrbio).
+- **$u$** : Força de tração/frenagem aplicada ao veículo (N), a variável de controle.
 - **$m$** : Massa do veículo (kg).
 
 Portanto:
