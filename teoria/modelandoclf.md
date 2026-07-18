@@ -1,6 +1,6 @@
-# Destrinchando a Função de Lyapunov de Controle (CLF) para o ACC
+# Modelando a Função de Lyapunov de Controle (CLF) para o ACC
 
-Este documento detalha, passo a passo, a dedução da **Função de Lyapunov de Controle (CLF)** aplicada ao problema de Controle de Cruzeiro Adaptativo (ACC). O objetivo é mostrar como saímos do "erro de velocidade" e chegamos na restrição matemática que é implementada dentro do QP (Programação Quadrática).
+O objetivo é mostrar como saímos do "erro de velocidade" e chegamos na restrição matemática que é implementada dentro do QP (Programação Quadrática).
 
 ---
 
