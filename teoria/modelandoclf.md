@@ -5,7 +5,7 @@
 O objetivo é mostrar como saímos do "erro de velocidade" e chegamos na restrição matemática que é implementada dentro do QP (Programação Quadrática). No contexto do ACC, o motorista estabelece uma velocidade desejada $V_d$ (ex: 80 km/h). O trabalho da CLF é garantir que a velocidade real do veículo $V_f$ **convirja** para essa velocidade $V_d$ de forma estável e suave, a menos que a segurança (CBF) impeça.
 
 
-## Passo 1: Definindo o Erro de Rastreamento
+## 1. Definindo o Erro de Rastreamento
 
 O primeiro passo para construir qualquer função de Lyapunov para rastreamento é definir a variável que queremos levar a zero. Definimos o erro de velocidade como:
 
@@ -16,7 +16,7 @@ O primeiro passo para construir qualquer função de Lyapunov para rastreamento 
 Se conseguirmos fazer com que $e \to 0$, o carro atingiu a velocidade desejada.
 
 
-## Passo 2: A Função de Lyapunov Candidata (A CLF)
+## 2. A Função de Lyapunov Candidata 
 
 A função de Lyapunov mais clássica e intuitiva para erros de rastreamento é o **quadrado do erro**. Ela é sempre positiva (exceto na origem) e mede a "energia" do erro.
 
