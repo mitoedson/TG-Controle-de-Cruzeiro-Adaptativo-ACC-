@@ -58,7 +58,7 @@ Substituindo $\dot{V}_f$ pela equação do veículo, temos a derivada completa e
 </div>
 
 
-## Passo 4: Extraindo as Derivadas de Lie ($L_fV$ e $L_gV$)
+## 4. Extraindo as Derivadas de Lie ($L_fV$ e $L_gV$)
 
 Para que o controlador (QP) consiga usar essa equação, precisamos separar a parte que **não depende** do controle $u$ (chamada de $L_fV$) e a parte que **multiplica** o controle $u$ (chamada de $L_gV$).
 
@@ -81,7 +81,7 @@ Portanto, as duas partes são:
 </div>
 
 
-## Passo 5: A Condição de Estabilidade Exponencial (A Desigualdade da CLF)
+## 5. A Condição de Estabilidade Exponencial (A Desigualdade da CLF)
 
 Para garantir que o erro de velocidade caia exponencialmente para zero (ou seja, $e^{-\alpha t}$), a teoria de Lyapunov exige que a derivada de $V$ seja negativa e proporcional à própria $V$:
 
