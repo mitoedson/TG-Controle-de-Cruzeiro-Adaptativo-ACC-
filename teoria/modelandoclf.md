@@ -1,14 +1,11 @@
 # Modelando a Função de Lyapunov de Controle (CLF) para o ACC
 
-O objetivo é mostrar como saímos do "erro de velocidade" e chegamos na restrição matemática que é implementada dentro do QP (Programação Quadrática).
-
----
-
 ## Objetivo da CLF
+
+O objetivo é mostrar como saímos do "erro de velocidade" e chegamos na restrição matemática que é implementada dentro do QP (Programação Quadrática).
 
 No contexto do ACC, o motorista estabelece uma velocidade desejada $V_d$ (ex: 80 km/h). O trabalho da CLF é garantir que a velocidade real do veículo $V_f$ **convirja** para essa velocidade $V_d$ de forma estável e suave, *a menos que a segurança (CBF) impeça*.
 
----
 
 ## Passo 1: Definindo o Erro de Rastreamento
 
@@ -20,7 +17,6 @@ O primeiro passo para construir qualquer função de Lyapunov para rastreamento 
 
 Se conseguirmos fazer com que $e \to 0$, o carro atingiu a velocidade desejada.
 
----
 
 ## Passo 2: A Função de Lyapunov Candidata (A CLF)
 
@@ -37,7 +33,6 @@ A função de Lyapunov mais clássica e intuitiva para erros de rastreamento é 
 2. **Radialmente Ilimitada**: 
    - Quando $V_f \to \infty$, $V(x) \to \infty$. Isso garante estabilidade global (não importa se o carro está a 10 m/s ou 100 m/s, a função funciona).
 
----
 
 ## Passo 3: Calculando a Derivada Temporal ($\dot{V}$) - O "Destrinchamento"
 
@@ -60,7 +55,6 @@ Substituindo $\dot{V}_f$ pela equação do veículo, temos a derivada completa e
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20%5Cdot%7BV%7D%20%3D%202(V_f%20-%20V_d)%20%5Ccdot%20%5Cleft(%20-%5Cfrac%7BF_r%7D%7Bm%7D%20%2B%20%5Cfrac%7B1%7D%7Bm%7D%20u%20%5Cright)">
 </div>
 
----
 
 ## Passo 4: Extraindo as Derivadas de Lie ($L_fV$ e $L_gV$)
 
@@ -84,7 +78,6 @@ Portanto, as duas partes são:
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20L_gV%20%3D%20%5Cfrac%7B2(V_f%20-%20V_d)%7D%7Bm%7D">
 </div>
 
----
 
 ## Passo 5: A Condição de Estabilidade Exponencial (A Desigualdade da CLF)
 
@@ -102,7 +95,6 @@ Substituindo $\dot{V}$ pela forma $L_fV + L_gV \cdot u$, obtemos a **restrição
 
 Onde $c_V > 0$ é a **taxa de convergência**. Quanto maior o $c_V$, mais rápido o carro acelera/freia para atingir a velocidade desejada.
 
----
 
 ## Passo 6: A Relaxação ($\delta$) - O Compromisso com a Segurança
 
@@ -116,7 +108,6 @@ Se a restrição acima for muito rígida, pode não existir solução quando a s
 - Se $\delta = 0$: A CLF é respeitada. O carro converge exponencialmente para $V_d$.
 - Se $\delta > 0$: A CLF é relaxada. O carro **prioriza a segurança** (freia) em vez de seguir $V_d$. O QP minimiza $\delta^2$ com um peso altíssimo para que isso só aconteça em emergências.
 
----
 
 ## Passo 7: Conexão Direta com o seu Código MATLAB (`LIE_2026.m`)
 
@@ -128,7 +119,6 @@ Toda essa dedução matemática está implementada no seu script de Lie. Abra o 
 | $L_fV$ | `LfVacc = transpose(gradient(Vacc,[Vf,xr]))*f` | Calcula a derivada independente do controle. |
 | $L_gV$ | `LgVacc = transpose(gradient(Vacc,[Vf,xr]))*g` | Calcula o coeficiente que multiplica o controle $u$. |
 
----
 
 ## Resumo para o seu TCC (Como escrever esta análise)
 
