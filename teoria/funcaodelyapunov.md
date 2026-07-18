@@ -28,7 +28,7 @@ $$\dot{V}(x) = \frac{\partial V}{\partial x}\dot{x} = \frac{\partial V}{\partial
 
 * Se $\dot{V}(x) \le 0$ (Semidefinida Negativa): O sistema é **Estável** no sentido de Lyapunov (as trajetórias não divergem, mas podem orbitar infinitamente).
 * Se $\dot{V}(x) < 0$ (Definida Negativa): O sistema é **Assintoticamente Estável** (a energia decai até zero, forçando o estado $x(t)$ a retornar exatamente para o ponto de equilíbrio $0$).
-
+* Se $\dot{V}(x) > 0$: O sistema é Instável.
 ---
 
 ## 2. Implementações e Evoluções na Teoria de Controle
