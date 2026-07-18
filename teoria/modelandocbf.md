@@ -55,7 +55,7 @@ Substituindo as derivadas parciais de $$( h = D - \tau_h V_f )$$ e as dinâmicas
 
 ## 4. Extraindo as Derivadas de Lie da CBF ($L_fh$ e $L_gh$)
 
-Para encaixar no QP, separamos o que independe do controle ( $$ L_fh $$ ) e o que multiplica $$( u )$$ ( $$ L_gh $$ ).
+Para encaixar no QP, separamos o que independe do controle ( $L_fh$ ) e o que multiplica $( u )$ ( $L_gh$ ).
 
 **1. Derivada de Lie em relação a f (parte natural da dinâmica):**
 <div align="center">
