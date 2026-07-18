@@ -16,7 +16,7 @@ Onde:
 
 Aplicando a Segunda Lei de Newton na direção longitudinal do movimento, temos que a massa vezes a aceleração é igual à soma das forças externas:
 
-$$ m \cdot \dot{V}_f = \sum F $$
+$$ \sum F = m \cdot \dot{V}_f  $$
 
 As forças atuantes são:
 1. **Força de Tração/Frenagem ($u$)**: Positiva para aceleração, negativa para frenagem.
