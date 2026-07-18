@@ -68,7 +68,8 @@ Substituindo $F_r$ nas equações, obtemos o sistema de duas EDOs de primeira or
 
 $$ 
 \begin{cases}
-\dot{V}_f = -\dfrac{f_0 + f_1 V_f + f_2 V_f^2}{m} + \dfrac{1}{m} u \\[1.2ex]
+\dot{V}_f = -\dfrac{f_0 + f_1 V_f + f_2 V_f^2}{m} + \dfrac{1}{m} u 
+\\ [1.2ex]
 \dot{D} = V_l - V_f
 \end{cases} 
 $$
