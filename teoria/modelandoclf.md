@@ -44,6 +44,37 @@ Lembrando da dinâmica do veículo (vinda da modelagem anterior):
 Aplicando a regra da cadeia para derivar $V$:
 
 <div align="center">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20%5Cdot%7BV%7D%20%3D%20%5Cfrac%7Bd%7D%7Bdt%7D(e%5E2)%20%3D%202%20%5Ccdot%20e%20%5Ccdot%20%5Cfrac%7Bde%7D%7Bdt%7D">
+</div>
+
+Calculando a derivada do erro ($\dot{e}$):
+
+Agora derivamos o erro $e = V_f - V_d$ no tempo.
+
+<div align="center">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20%5Cfrac%7Bde%7D%7Bdt%7D%20%3D%20%5Cfrac%7Bd%7D%7Bdt%7D(V_f%20-%20V_d)">
+</div>
+
+ A grande sacada (Por que $\dot{V}_f$ aparece):
+
+Como a velocidade desejada $V_d$ é uma constante (definida pelo motorista), sua derivada no tempo é ZERO ($\dot{V}_d = 0$). Já a velocidade do veículo $V_f$ varia, e sua derivada é exatamente a aceleração ($\dot{V}_f$).
+
+<div align="center">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20%5Cfrac%7Bde%7D%7Bdt%7D%20%3D%20%5Cdot%7BV%7D_f%20-%20%5Cdot%7BV%7D_d%20%3D%20%5Cdot%7BV%7D_f%20-%200%20%3D%20%5Cdot%7BV%7D_f">
+</div>
+
+Resultado final (A CLF derivada):
+
+Substituindo $\dot{e}$ de volta na equação do passo 3:
+
+<div align="center">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20%5Cdot%7BV%7D%20%3D%202(V_f%20-%20V_d)%20%5Ccdot%20%5Cdot%7BV%7D_f">
+</div>
+
+
+
+
+<div align="center">
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20%5Cdot%7BV%7D%20%3D%202(V_f%20-%20V_d)%20%5Ccdot%20%5Cdot%7BV%7D_f">
 </div>
 
