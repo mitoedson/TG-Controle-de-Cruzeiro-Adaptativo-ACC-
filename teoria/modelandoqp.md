@@ -1,17 +1,15 @@
 # Destrinchando o QP: Como ele casa CLF e CBF?
 
-O QP é o "árbitro" da briga. Ele recebe as duas restrições (CLF e CBF) e calcula o controle \( u \) que satisfaz ambas da melhor forma possível.
-
----
+O QP recebe as duas restrições (CLF e CBF) e calcula o controle $$( u )$$ que satisfaz ambas da melhor forma possível.
 
 ## 1. O que o QP precisa decidir?
 
 A cada instante de tempo, o QP recebe:
 
-- **O desejo da CLF**: Acelerar para chegar em \( V_d \).
+- **O desejo da CLF**: Acelerar para chegar em $$( V_d )$$.
 - **A obrigação da CBF**: Frear para não colidir.
 
-O QP deve encontrar um valor para **\( u \) (aceleração)** e para **\( \delta \) (relaxação)** que minimize uma função de custo, respeitando as duas restrições.
+O QP deve encontrar um valor para **$$( u )$$ (aceleração)** e para **$$( \delta )$$ (relaxação)** que minimize uma função de custo, respeitando as duas restrições.
 
 ---
 
@@ -24,8 +22,8 @@ O QP resolve um problema de otimização com duas variáveis de decisão:
 </div>
 
 Onde:
-- **\( u \)** = Aceleração/frenagem comandada (m/s²).
-- **\( \delta \)** = Relaxação da CLF (adimensional). Quanto maior, mais a CLF é "ignorada".
+- **$$( u )$$** = Aceleração/frenagem comandada (m/s²).
+- **$$( \delta )$$** = Relaxação da CLF (adimensional). Quanto maior, mais a CLF é "ignorada".
 
 ---
 
@@ -38,14 +36,14 @@ O QP minimiza a seguinte função custo quadrática:
 </div>
 
 **Interpretação:**
-- **\( \frac{1}{2} u^2 \)**: Penaliza acelerações/frenagens muito fortes (conforto e eficiência).
-- **\( p_\delta \delta^2 \)**: Penaliza a relaxação da CLF. O peso \( p_\delta \) é altíssimo (ex: \( 10^5 \)), então o QP **odeia** usar \( \delta > 0 \). Só usa em emergências.
+- **$$( \frac{1}{2} u^2 )$$**: Penaliza acelerações/frenagens muito fortes (conforto e eficiência).
+- **$$( p_\delta \delta^2 )$$**: Penaliza a relaxação da CLF. O peso $$( p_\delta )$$ é altíssimo (ex: $$( 10^5 )$$), então o QP **odeia** usar $$( \delta > 0 )$$. Só usa em emergências.
 
 ---
 
 ## 4. As Restrições (As "Regras do Jogo")
 
-O QP deve obedecer a duas restrições lineares (afins em \( u \)).
+O QP deve obedecer a duas restrições lineares (afins em $$( u )$$).
 
 ### Restrição 1: A CLF (Desempenho - Flexível)
 
@@ -61,7 +59,7 @@ Reescrevendo para encaixar no formato \( A z \leq b \):
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20L_gV%20%5Ccdot%20u%20-%20%5Cdelta%20%5Cleq%20-L_fV%20-%20c_V%20V">
 </div>
 
-**Linha da CLF na matriz \( A \):** \( [L_gV, \ -1] \)
+**Linha da CLF na matriz $$( A )$$:** $$( [L_gV, \ -1] )$$
 
 ### Restrição 2: A CBF (Segurança - Rígida)
 
@@ -71,17 +69,17 @@ A CBF exige:
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20L_fh%20%2B%20L_gh%20%5Ccdot%20u%20%2B%20%5Cgamma%20h%20%5Cgeq%200">
 </div>
 
-Reescrevendo para encaixar no formato \( A z \leq b \) (multiplicando por -1 para inverter a desigualdade):
+Reescrevendo para encaixar no formato $$( A z \leq b )$$ (multiplicando por -1 para inverter a desigualdade):
 
 <div align="center">
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20-L_gh%20%5Ccdot%20u%20%5Cleq%20L_fh%20%2B%20%5Cgamma%20h">
 </div>
 
-**Linha da CBF na matriz \( A \):** \( [-L_gh, \ 0] \)
+**Linha da CBF na matriz $$( A )$$:** $$( [-L_gh, \ 0] )$$
 
 ---
 
-## 5. O Sistema Completo (Forma Matricial \( Az \leq b \))
+## 5. O Sistema Completo (Forma Matricial $$( Az \leq b )$$)
 
 Juntando tudo, o QP resolve o seguinte problema a cada iteração:
 
@@ -101,7 +99,7 @@ Sujeito a:
 
 O QP analisa as duas restrições e toma a decisão em 3 passos:
 
-1.  **Tenta \( \delta = 0 \)**: O QP primeiro verifica se existe algum \( u \) que satisfaça **ambas** as restrições com \( \delta = 0 \). Se existir, ótimo! A CLF é respeitada integralmente, e o carro acelera/freia para seguir \( V_d \) sem relaxação.
+1.  **Tenta $$( \delta = 0 )$$**: O QP primeiro verifica se existe algum $$( u )$$ que satisfaça **ambas** as restrições com $$( \delta = 0 )$$. Se existir, ótimo! A CLF é respeitada integralmente, e o carro acelera/freia para seguir \( V_d \) sem relaxação.
 
 2.  **Conflito (A CBF Vence)**: Se não existe \( u \) que satisfaça as duas ao mesmo tempo (ex: a CLF quer acelerar, mas a CBF exige frenagem forte), o QP **aumenta o valor de \( \delta \)**. Isso "alivia" a restrição da CLF (o lado direito fica menos negativo ou positivo), permitindo que o QP escolha um \( u \) que satisfaça a CBF.
 
