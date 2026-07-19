@@ -149,8 +149,15 @@ Onde:
 | **CBF** | $$( h = D - \tau_h V_f )$$ | Mede a "folga" de segurança. Queremos que ela seja sempre positiva. |
 | **QP** | Minimiza $$( u^2 + p_\delta \delta^2 )$$ | Encontra a aceleração que satisfaz as restrições com o menor esforço possível. |
 
----
 
 **Nota Final:** Este sistema de equações é a base teórica implementada no seu modelo Simulink (`ACC_TESTE_2026`) e resolvida numericamente pelo algoritmo de Hildreth (`QPhild.m`). Enquanto a CLF puxa o sistema para $$( V_d )$$, a CBF o segura para que $$( D )$$ não caia abaixo de $$( \tau_h V_f )$$, criando um equilíbrio dinâmico entre desempenho e segurança.
-```
+
+
+
+
+
+
+
+
+
 
