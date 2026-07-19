@@ -102,21 +102,15 @@ Toda essa dedução matemática está implementada no seu script. Veja a corresp
 | $$( L_fh )$$ | `Lfhacc = transpose(gradient(hacc,[Vf;xr]))*f` | Calcula a derivada independente do controle. |
 | $$( L_gh )$$ | `Lghacc = transpose(gradient(hacc,[Vf;xr]))*g` | Calcula o coeficiente que multiplica o controle \( u \). |
 
----
 
-## Resumo para o seu TCC (Como escrever esta análise)
+## 8. Conclusão
 
-> "A CBF foi definida como $$( h = D - \tau_h V_f )$$, representando a distância de segurança ajustada pelo tempo de reação do motorista. A condição de invariância do conjunto seguro, $$( \dot{h} + \gamma h \geq 0 )$$, garante que o veículo nunca viole a distância mínima em relação ao líder. Separando a dinâmica em $$( L_fh )$$ e $$( L_gh )$$, obteve-se a restrição linear $$( L_fh + L_gh u + \gamma h \geq 0 )$$. 
-> 
-> Enquanto a CLF impõe uma desigualdade de 'menor ou igual' ($$( \leq )$$) para garantir a convergência da velocidade, a CBF impõe uma desigualdade de 'maior ou igual' ($$( \geq )$$) para garantir a manutenção da distância. O QP resolve este conflito priorizando a restrição da CBF (rígida), relaxando a CLF ($$( \delta )$$) quando necessário."
-
----
+A CBF foi definida como $$( h = D - \tau_h V_f )$$, representando a distância de segurança ajustada pelo tempo de reação do motorista. A condição de invariância do conjunto seguro, $$( \dot{h} + \gamma h \geq 0 )$$, garante que o veículo nunca viole a distância mínima em relação ao líder. Separando a dinâmica em $$( L_fh )$$ e $$( L_gh )$$, obteve-se a restrição linear $$( L_fh + L_gh u + \gamma h \geq 0 )$$. 
+ 
+Enquanto a CLF impõe uma desigualdade de 'menor ou igual' ($$( \leq )$$) para garantir a convergência da velocidade, a CBF impõe uma desigualdade de 'maior ou igual' ($$( \geq )$$) para garantir a manutenção da distância. O QP resolve este conflito priorizando a restrição da CBF (rígida), relaxando a CLF ($$( \delta )$$) quando necessário.
 
 **Agora você tem os dois lados da mesma moeda:** 
 - **CLF**: puxa o carro para frente (velocidade). 
 - **CBF**: segura o carro para trás (distância). 
 O **QP** (com a ajuda do $$(\delta)$$ e do $$(p_\delta)$$) é o árbitro que decide, a cada instante, qual dos dois vai vencer a queda de braço!
-
-Quando você for escrever o TCC, essa estrutura lado a lado (CLF vs CBF) impressiona muito, porque mostra que você domina o duelo teórico por trás do método. 🚀
-
 Quer agora dar o próximo passo e ver como essas duas restrições se encontram dentro do **bloco do QP** (e como o algoritmo de Hildreth, do seu `QPhild.m`, resolve essa briga na prática)?
