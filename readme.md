@@ -5,7 +5,6 @@ Este repositório contém o ambiente de simulação em MATLAB/Simulink para um *
 
 O framework matemático adota **Funções de Lyapunov de Controle (CLF)** para o rastreamento da velocidade desejada e **Funções de Barreira de Controle (CBF)** para garantir a invariância de segurança (evitar colisões), resolvidos concorrentemente via **Programação Quadrática (QP)**.
 
----
 
 ## Visão Geral do Projeto
 
@@ -18,7 +17,6 @@ O objetivo do sistema ACC é regular a velocidade de um veículo seguidor (*host
 * **Otimização em Tempo Real (QP):** O cálculo da aceleração ótima ($u$) ocorre a cada passo de simulação, resolvendo um problema de Programação Quadrática analiticamente via algoritmo de *Hildreth* (`QPhild.m`), ideal para posterior embarque em hardware automotivo devido ao baixo custo computacional.
 * **Modelo Dinâmico Realista:** Considera a física do veículo com forças de arrasto aerodinâmico não-lineares ($F_r = f_0 + f_1V_f + f_2V_f^2$).
 
----
 
 ##  Formulação Matemática
 
@@ -41,7 +39,6 @@ $$L_f h(x) + L_g h(x)u \ge -\gamma h(x)$$
 Onde $L_f$ e $L_g$ representam as Derivadas de Lie calculadas dinamicamente no sistema.
 
 * <a href="docs/cbf.md">Segurança via CBF (Control Barrier Functions)</a>: Garante a invariância do conjunto seguro, agindo como um filtro de segurança inviolável para evitar colisões traseiras.
----
 
 ## 📂 Estrutura do Repositório
 
