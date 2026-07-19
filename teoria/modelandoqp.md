@@ -113,7 +113,7 @@ E chama o `QPhild.m`, que resolve este sistema $$( Az \leq b )$$ usando o algori
 
 ## 8. Conclusão
 
-"O QP atua como um mecanismo de mediação entre a CLF e a CBF, resolvendo um problema de otimização quadrática que minimiza o esforço de controle ($$( u^2 )$$) e a relaxação da CLF ($$( \delta^2 )$$). As restrições da CLF e da CBF são formuladas como desigualdades lineares afins em $$( u )$$, resultando em um problema convexo de rápida solução. Quando as restrições entram em conflito, o QP prioriza a CBF (rígida) e eleva o valor de $$( \delta )$$ (relaxação da CLF) apenas o suficiente para garantir a factibilidade. Esta estrutura garante que a segurança nunca seja violada, enquanto o desempenho é otimizado sempre que possível."
+"O QP atua como um mecanismo de mediação entre a CLF e a CBF, resolvendo um problema de otimização quadrática que minimiza o esforço de controle $$( u^2 )$$ e a relaxação da CLF $$( \delta^2 )$$. As restrições da CLF e da CBF são formuladas como desigualdades lineares afins em $$( u )$$, resultando em um problema convexo de rápida solução. Quando as restrições entram em conflito, o QP prioriza a CBF (rígida) e eleva o valor de $$( \delta )$$ (relaxação da CLF) apenas o suficiente para garantir a factibilidade. Esta estrutura garante que a segurança nunca seja violada, enquanto o desempenho é otimizado sempre que possível."
 
 **Agora você tem o quadro completo:** 
 - CLF puxa para frente (desempenho). 
