@@ -1,244 +1,244 @@
 # Arquitetura da Simulação: Arquivos, Parâmetros e Sintonia
 
-Este documento descreve como os arquivos do projeto se relacionam durante a simulação do ACC (CLF-CBF-QP), lista todos os parâmetros de projeto disponíveis e explica como o ajuste de cada um afeta o comportamento e a performance do sistema.
+Este documento descreve a evolução completa da simulação do ACC — desde a primeira tentativa (arquitetura ASIF com conflito CBF×conforto) até a arquitetura de dois níveis final (Chinelato et al., 2023) — incluindo todo o processo de depuração numérica, as descobertas qualitativas sobre o comportamento das diferentes arquiteturas, e o dicionário completo de parâmetros.
 
+---
 
-## 1. Visão Geral da Arquitetura
+## 1. Visão Geral: Três Gerações de Implementação
 
-A simulação é dividida em cinco arquivos, cada um responsável por uma etapa do pipeline: dedução simbólica → montagem do problema de otimização a cada instante → solução do QP → malha fechada no Simulink → inicialização e pós-processamento.
+O projeto passou por três gerações de código, cada uma resolvendo um problema da anterior:
 
 ```mermaid
 flowchart TB
-    subgraph OFFLINE["Fase Offline — executada uma única vez, antes da simulação"]
-        LIE["LIE_2026.m<br/>Dedução simbólica<br/>(LfV, LgV, Lfh, Lgh)"]
-    end
+    G1["Geração 1<br/>Filtro ASIF + restrição de<br/>conforto empilhada ingenuamente<br/><br/>min(hacc) = −4.2852 ❌"]
+    G2A["Geração 2a<br/>ACC_AMES_CLFCBF_QP.txt<br/>Fiel a Ames et al. (2014)<br/>Case I: só CLF + CBF"]
+    G2B["Geração 2b<br/>ACC_AMES_ASIF.txt<br/>Filtro nominal reconstruído<br/>(unom vem da própria CLF do artigo)"]
+    G3["Geração 3<br/>ACC_CHINELATO_2NIVEIS.txt<br/>Upper-level QP + Lower-level PID<br/>(Chinelato et al., 2023)"]
 
-    subgraph WORKSPACE["INIT_ACC_2026.m — Script Principal"]
-        INIT["Define Vf0, D0<br/>Configura StopTime<br/>Executa a simulação"]
-        PLOT["Plota resultados<br/>(Vf, Vl, xr, hacc, u)"]
-    end
+    G1 -->|"conflito estrutural<br/>identificado"| G2A
+    G1 -->|"arquitetura reconstruída<br/>com unidades consistentes"| G2B
+    G2A -->|"validado (psc=10)<br/>adaptado para dois níveis"| G3
 
-    subgraph SIMULINK["ACC_TESTE_2026.slx — Malha Fechada"]
-        CLOCK["Clock (t)"]
-        INT1["Integrator<br/>Vf0 → Vf"]
-        INT2["Integrator<br/>D0 → xr"]
-        MUX["Mux [Vf; xr; t]"]
-        FCN["MATLAB Function (fcn)<br/>Monta H, F, A, b<br/>a cada passo"]
-        QP["QPhild.m<br/>Resolve o QP<br/>(algoritmo de Hildreth)"]
-        DEMUX["Demux<br/>[dVf/dt; dxr/dt; hacc; Vl; u; Vd]"]
-    end
-
-    LIE -.-> |"equações copiadas<br/>manualmente para"| FCN
-    INIT --> SIMULINK
-    CLOCK --> MUX
-    INT1 --> MUX
-    INT2 --> MUX
-    MUX --> FCN
-    FCN --> |"Hacc, Facc, A, b"| QP
-    QP --> |"u*"| FCN
-    FCN --> DEMUX
-    DEMUX --> |"dVf/dt"| INT1
-    DEMUX --> |"dxr/dt"| INT2
-    DEMUX --> PLOT
-
-    style OFFLINE fill:#E8EEF5,stroke:#0B2545
-    style SIMULINK fill:#0B2545,stroke:#0B2545,color:#fff
-    style WORKSPACE fill:#F7F9FB,stroke:#8DA9C4
-    style FCN fill:#EE6C4D,stroke:#EE6C4D,color:#fff
-    style QP fill:#EE6C4D,stroke:#EE6C4D,color:#fff
+    style G1 fill:#D62828,color:#fff
+    style G2A fill:#2A9D8F,color:#fff
+    style G2B fill:#2A9D8F,color:#fff
+    style G3 fill:#0B2545,color:#fff
 ```
 
-### Responsabilidade de cada arquivo
+### Arquivos finais do projeto
 
-| Arquivo | Papel | Roda quando? |
+| Arquivo | Papel | Status |
 |---|---|---|
-| `LIE_2026.m` | Deriva simbolicamente as Derivadas de Lie do modelo (`LfV`, `LgV`, `Lfh`, `Lgh`) usando o Symbolic Math Toolbox. As expressões resultantes são copiadas manualmente para dentro do bloco `fcn`. | Uma vez, offline, antes de codar o `fcn` |
-| `ACC_TESTE_2026.slx` | Contém a malha fechada: Integrators (que guardam `Vf` e `xr` como estado), Clock, e o bloco MATLAB Function que chama o solver a cada passo. | Durante toda a simulação |
-| `fcn` (dentro do `.slx`) | Recebe `[Vf; xr; t]`, calcula o perfil do líder `Vl(t)`, monta as matrizes do QP (`Hacc`, `Facc`, `A`, `b`) e chama `QPhild`. Devolve as derivadas de estado e sinais para plot. | A cada passo de integração do solver |
-| `QPhild.m` | Resolve analiticamente o problema de Programação Quadrática via algoritmo de Hildreth, sem depender do `quadprog` nativo. | Chamada de dentro do `fcn`, a cada passo |
-| `INIT_ACC_2026.m` (ou comandos manuais no workspace) | Define as condições iniciais (`Vf0`, `D0`), aciona a simulação e gera os gráficos. | Antes e depois da simulação |
+| `LIE_2026.m` | Dedução simbólica das derivadas de Lie (LfV, LgV, Lfh, Lgh) | Suporte / offline |
+| `QPhild.m` | Resolve o QP via algoritmo de Hildreth | Usado por todos os `fcn` |
+| `ACC_AMES_CLFCBF_QP.txt` | CLF-CBF-QP completo, fiel a Ames et al. (2014), Case I | ✅ Validado (`psc=10`) |
+| `ACC_AMES_ASIF.txt` | Filtro Nominal + CBF (ASIF), mesma convenção de unidades | ✅ Validado |
+| `ACC_CHINELATO_2NIVEIS.txt` | Arquitetura de dois níveis (upper QP + lower PID) | ⚠️ Validado com ressalva (ver Seção 4.3) |
+| `ACC_TESTE_2026.slx` | Malha fechada Simulink — Integrators, Clock, Demux | Compartilhado pelos três `fcn` acima (trocando o conteúdo do bloco) |
+| `INIT_ACC_2026.m` | Define `Vf0`, `D0`, roda `sim(...)`, plota resultados | Script principal |
 
-> **Nota importante sobre o `fcn` atual:** o arquivo contém **duas formulações** de controlador, uma comentada e outra ativa. Elas não são pequenas variações uma da outra — são duas filosofias de controle diferentes. A seção 1.1 detalha essa diferença.
+---
 
+## 2. CLF-CBF-QP vs. ASIF: Duas Filosofias de Controle
 
-### 1.1 Duas Arquiteturas de Controle no Mesmo Arquivo
+### 2.1 Comparação estrutural
 
-O `fcn` guarda, lado a lado, duas implementações possíveis. Só uma está ativa por vez (a segunda, atualmente). É essencial não confundi-las: os resultados simulados e o achado `min(hacc) = −4.2852` vêm **exclusivamente** da arquitetura ativa (Filtro de Segurança), não da CLF-CBF-QP completa.
-
-### 1.1.1 Comparação estrutural
-
-| Aspecto | **CLF-CBF-QP completo** (comentado) | **Filtro Nominal + CBF** (ativo) |
+| Aspecto | **CLF-CBF-QP completo** | **Filtro Nominal + CBF (ASIF)** |
 |---|---|---|
-| Variáveis de decisão do QP | `u` **e** `δ` (2 variáveis) | Só `u` (1 variável) |
-| Restrições no QP | CLF (suave, com folga `δ`) **+** CBF (rígida) | Só CBF (rígida) |
-| Como `Vd` é perseguido | **Dentro** do QP, como restrição CLF | **Fora** do QP — por um controlador P simples (`unom = k·(Vd−Vf)`) calculado *antes* de chamar o QP |
-| O que o QP minimiza | Esforço de controle bruto: $\mu^T\mu$ | Distância até `unom`: $(u-u_{nom})^2$ |
-| Variável de folga $\delta$ | Existe — relaxa a CLF quando há conflito com a CBF | Não existe — não há CLF para relaxar |
-| Garantia de convergência a `Vd` | **Formal**, decorre do teorema de estabilidade da CLF | **Nenhuma** — depende inteiramente da escolha (arbitrária) de `unom` |
-| Garantia de segurança (CBF) | Idêntica nos dois casos — mesma matemática de invariância do conjunto seguro | Idêntica |
-| Nome na literatura | CLF-CBF-QP (Ames et al., 2014; 2017) | *Safety Filter* / **ASIF** — Active Set Invariance Filter (Gurriet et al., 2018; citado em Ames et al., 2019, Fig. 4) |
-| Variáveis no código | `Vacc`, `psc`, `c`, `A=[LgVacc -1; -Lghacc 0]` | `unom`, `k`, `A=[-Lghacc]` |
-
-### 1.1.2 A diferença em uma linha
+| Variáveis de decisão do QP | `u` e `δ` (2) | Só `u` (1) |
+| Restrições no QP | CLF (suave, com folga `δ`) + CBF (rígida) | Só CBF (rígida) |
+| Como `Vd` é perseguido | Dentro do QP, como restrição CLF | Fora do QP — controlador nominal calculado antes |
+| Graus de liberdade quando a CBF está ativa | 1 (via `δ`) — ainda tenta minimizar afastamento de `Vd` | 0 — `u` fica 100% determinado pela CBF |
+| `Vd` influencia `u` quando a CBF está ativa? | Sim, parcialmente | **Não**, nenhuma influência |
+| Nome na literatura | CLF-CBF-QP (Ames et al., 2014; 2017) | ASIF — Active Set Invariance Filter (Gurriet et al., 2018) |
 
 ```
 CLF-CBF-QP completo:   [Objetivo de velocidade + Segurança]  →  QP  →  u*
-Filtro ativo (ASIF):   [Objetivo de velocidade]  →  u_nom  →  [Segurança]  →  QP  →  u*
+Filtro ASIF:           [Objetivo de velocidade]  →  u_nom  →  [Segurança]  →  QP  →  u*
 ```
 
-Na primeira, o controlador **nasce dentro** da otimização: não existe nenhum `u` calculado previamente, o QP decide tudo de uma vez, balanceando velocidade e segurança simultaneamente. Na segunda, o QP **não sabe nada sobre `Vd`** — ele só recebe um pedido de controle já pronto (`unom`) e pergunta "isso é seguro? Se não for, qual é o `u` mais próximo dele que é seguro?". A CBF nunca empurra o sistema *em direção* a `Vd`; ela só *filtra* o que o controlador nominal pediu.
+### 2.2 O controlador nominal do ASIF, em detalhe
+
+```matlab
+unom = -c*(m/2)*(Vf-Vd) + Fr;
+```
+
+Essa fórmula vem diretamente da Seção IV-A de Ames et al. (2014) — é o exemplo que o próprio artigo dá de um controlador que satisfaz a condição de CLF com igualdade (cancela o arrasto e adiciona realimentação proporcional). **Nenhuma variável de segurança (`xr`, `Vl`, `hacc`) aparece nessa fórmula** — o controlador nominal resolve *só* "chegar em `Vd`", cego para tudo o mais.
+
+### 2.3 Comportamento qualitativo perto da fronteira (achado empírico)
+
+Quando `hacc = xr - Td·Vf` fica pinada próxima de zero por um trecho prolongado, a restrição da CBF está ativa com igualdade continuamente. Como no ASIF isso consome a única variável de decisão disponível, dá para derivar exatamente o que acontece:
+
+$$x_r(t) \approx T_d \cdot V_f(t) \quad \Rightarrow \quad \dot{x}_r \approx T_d \cdot \dot{V}_f$$
+
+Como $\dot{x}_r = V_l - V_f$ é sempre verdade (equação de estado), substituindo:
+
+$$\dot{V}_f \approx \frac{V_l - V_f}{T_d}$$
+
+**Interpretação:** enquanto a CBF está ativa, o sistema deixa de perseguir `Vd` e passa a se comportar como um **filtro passa-baixa de primeira ordem seguindo o líder**, com constante de tempo `Td`. Esse comportamento de "colar no líder" — observado empiricamente nos gráficos (`Vf` acompanhando as acelerações de `Vl` perto da fronteira) — **emerge da matemática da restrição ativa**, sem que nenhum `if` explícito no código o programe.
+
+O sistema alterna entre dois modos:
+- **Longe da fronteira:** CBF inativa → `u = unom` → `Vf` persegue `Vd`
+- **Perto da fronteira:** CBF ativa → `u` determinado só pela CBF → `Vf` persegue `Vl` (com atraso `Td`)
+
+No CLF-CBF-QP completo, esse chaveamento é suavizado pela variável `δ`, que permite ao sistema "negociar" em vez de abandonar `Vd` por completo.
+
+---
+
+## 3. Histórico de Validação Numérica do `psc`
+
+### 3.1 As quatro iterações
+
+| # | Arquitetura | `psc` | `min(hacc)` | Causa / Conclusão |
+|---|---|---|---|---|
+| 1 | Filtro ASIF + restrição de conforto empilhada ingenuamente | — | **−4.2852** | Conflito estrutural: CBF de segurança e limite de força tornam-se simultaneamente inviáveis (ver Ames et al. 2017, Seção V-A-3) |
+| 2 | CLF-CBF-QP completo | `100` | **−1.5738** | Hessiana do QP mal-condicionada: $H_{11}=2/m^2\approx7,3\times10^{-7}$ vs. $H_{22}=2p_{sc}=200$ — razão $\sim\!2,7\times10^{8}$ impede convergência do Hildreth em 38 iterações |
+| 3 | CLF-CBF-QP completo, Tabela I do Ames et al. (2014) | `1e-5` | **3,10×10⁻¹⁰** ✅ | Hessiana bem condicionada, mas surge uma "zona preguiçosa": para erros de velocidade pequenos, o QP prefere relaxar a CLF (barato) a corrigir de verdade (caro) — ver Seção 3.2 |
+| 4 | CLF-CBF-QP completo, `psc` ajustado ao cenário | **`10`** | **3,40×10⁻¹⁰** ✅ | Resolve os dois problemas simultaneamente: Hessiana ainda razoavelmente condicionada **e** zona preguiçosa praticamente eliminada — **valor recomendado** |
+
+### 3.2 A "zona preguiçosa": por que `psc` pequeno demais atrapalha o desempenho
+
+O QP compara, a cada instante, o custo de duas estratégias diante de um erro de velocidade $e = V_f - V_d$:
+
+| Estratégia | Como o custo escala com `e` |
+|---|---|
+| Relaxar via `δ` (ignorar o erro) | $\propto p_{sc}\cdot e^4$ (quártico) |
+| Corrigir via força `u` | $\propto e^2$ (quadrático) |
+
+Para `e` pequeno, o termo quártico é menor que o quadrático (mesmo com `psc` moderado), então relaxar sai mais barato — o sistema "não liga" para erros pequenos. O ponto de equilíbrio aproximado entre as duas estratégias é:
+
+$$e^{*} \approx \sqrt{\frac{1}{4 \cdot p_{sc}}}$$
+
+| `psc` | `e*` aproximado | Efeito prático |
+|---|---|---|
+| `1e-5` | ≈ 158 m/s | Erro real (~4 m/s) nunca ultrapassa o limiar → sistema sempre relaxa, `Vf` mal se move |
+| `10` | ≈ 0,16 m/s | Qualquer erro relevante já dispara correção real → rastreamento responsivo |
+| `100` | ≈ 0,05 m/s | Rastreamento ainda mais agressivo, mas Hessiana malcondicionada trava o solver |
+
+### 3.3 Achado teórico: `psc` como um "dial" contínuo entre as duas arquiteturas
+
+Com `psc` grande, relaxar a CLF via `δ` fica caro para praticamente qualquer erro — a restrição CLF passa a se comportar como **quase rígida**, cada vez mais parecida com o controlador nominal do ASIF (que persegue `Vd` de forma incondicional). Por isso, o resultado com `psc=10` no CLF-CBF-QP ficou visualmente muito parecido com o ASIF.
+
+**Conclusão:** o ASIF não é uma arquitetura fundamentalmente separada do CLF-CBF-QP — ele é, na prática, o **caso-limite do CLF-CBF-QP quando $p_{sc}\to\infty$** (a folga fica tão cara que nunca compensa usá-la). A diferença remanescente é que o CLF-CBF-QP **ainda tem a opção** de usar `δ` em situações extremas; o ASIF **nunca tem essa opção**, por construção.
+
+$$p_{sc} \to 0 \quad\Longrightarrow\quad \text{zona preguiçosa, } V_d \text{ é ignorado facilmente}$$
+$$p_{sc} \to \infty \quad\Longrightarrow\quad \text{CLF-CBF-QP} \to \text{ASIF}$$
+
+Essa é uma contribuição analítica que emergiu da investigação empírica deste projeto — vale destacá-la na seção de discussão do TG.
+
+---
+
+## 4. Arquitetura de Dois Níveis (Chinelato et al., 2023)
+
+### 4.1 Estrutura
 
 ```mermaid
 flowchart LR
-    subgraph COMPLETA["CLF-CBF-QP completo"]
-        direction TB
-        A1["Vf, xr, Vl, Vd"] --> A2["QP:<br/>min ½uᵀHu + Fᵀu<br/>s.a. CLF(δ) e CBF"]
-        A2 --> A3["u* — já é o controlador final"]
-    end
-    subgraph FILTRO["Filtro Nominal + CBF (ativo)"]
-        direction TB
-        B1["Vf, Vd"] --> B2["Controlador P nominal<br/>unom = k·(Vd−Vf)"]
-        B1b["Vf, xr, Vl"] --> B3["QP:<br/>min (u−unom)²<br/>s.a. CBF"]
-        B2 --> B3
-        B3 --> B4["u* — versão 'segura' de unom"]
-    end
-    style COMPLETA fill:#E8EEF5,stroke:#0B2545
-    style FILTRO fill:#0B2545,stroke:#0B2545,color:#fff
-    style B3 fill:#EE6C4D,color:#fff
-    style A2 fill:#EE6C4D,color:#fff
+    A["Nível Superior<br/>CLF-CBF-QP<br/>(convenção Chinelato:<br/>u = aceleração)"] -->|"a_h* (desejada)"| B["Nível Inferior<br/>PID simplificado<br/>(throttle + freio)"]
+    B -->|"uth, ubr (%)"| C["Atuadores<br/>(mapeamento saturado,<br/>sem dinâmica de atraso)"]
+    C -->|"ah (real)"| D["Dinâmica do veículo<br/>dVf/dt = ah"]
+    D -.->|"realimentação"| A
+    D -.->|"realimentação"| B
+
+    style A fill:#0B2545,color:#fff
+    style B fill:#EE6C4D,color:#fff
+    style C fill:#8DA9C4
+    style D fill:#E8EEF5
 ```
 
-### 1.1.3 Por que essa diferença importa para o TG
+### 4.2 Diferenças-chave em relação aos arquivos Ames-puros
 
-- **Consistência teórica ↔ prática:** os slides e a formulação matemática apresentada (com CLF suave + `δ`) descrevem o **CLF-CBF-QP completo**. Os gráficos e o achado do `min(hacc) = −4.2852`, porém, vêm da arquitetura **ASIF**. É importante deixar essa distinção explícita no texto do TG, para não parecer inconsistência entre teoria e resultados.
-- **A ausência de `δ` não é o problema da violação.** O conflito CBF × conforto (Seção 4) ocorre em **ambas** as arquiteturas — ele é uma propriedade da CBF isolada frente aos limites de força, não uma consequência de usar ou não a CLF.
-- **Qual escolher para o TG:** a arquitetura ASIF é mais simples de justificar teoricamente (é literalmente "pegue qualquer controlador e torne-o seguro"), mas abre mão da garantia formal de desempenho. Se o objetivo do trabalho é demonstrar a **unificação** de desempenho e segurança (o que os slides enfatizam), a versão completa é a mais fiel ao referencial teórico — vale considerar reativá-la para a versão final dos resultados.
+- **Convenção de unidades:** `u` volta a ser **aceleração** (não força), igual ao modelo de Chinelato — `g_acc=[1;0]`, `Hacc = 2*[1, 0; 0, pdacc]` (sem o fator `1/m²`).
+- **Saída do nível superior:** `a_h* = uacc − Fr/m` — não é mais aplicado diretamente à planta.
+- **Nível inferior novo:** PID simplificado (escolha do autor: sem dinâmica de atuador separada) convertendo `a_h*` em comandos de throttle/freio (`uth`, `ubr`, 0–100%), usando `persistent` para dar memória ao termo integral do PID dentro do bloco MATLAB Function.
+- **A planta recebe `ah` (real, pós-atuador), não `a_h*`** — essa é a mudança estrutural mais importante.
 
+### 4.3 Achado crítico: a garantia formal de segurança não é herdada automaticamente
 
-## 2. Dicionário de Parâmetros
-
-### 2.1 Parâmetros do controlador (upper-level) — ativos no `fcn`
-
-| Símbolo | Variável no código | Valor atual | Onde aparece | O que controla |
-|---|---|---|---|---|
-| $V_d$ | `Vd` | 22 m/s | `unom = k*(Vd-Vf)` | Velocidade de cruzeiro desejada |
-| $k$ | `k` | 0.5 | `unom = k*(Vd-Vf)` | Ganho do controlador proporcional nominal |
-| $\lambda$ (≡ $\gamma$) | `lambda` | 1 | `b = Lfhacc + lambda*hacc` | Agressividade da CBF perto da fronteira do conjunto seguro |
-| $T_d$ | `Td` | 1.8 s | `hacc = xr - Td*Vf` | Time headway — tamanho do "colchão" de segurança |
-| — | `cbfacc_ativ` | 1 | `if cbfacc_ativ == 1 ... else ucont = unom` | Liga/desliga o filtro de segurança (1 = CBF ativa, 0 = só nominal) |
-| — | `Hacc`, `Facc` | `[2]`, `[-2*unom]` | Custo do QP | Faz o QP buscar o `u` mais próximo possível de `unom` (min-norm filter) |
-
-### 2.2 Parâmetros do controlador — CLF-CBF-QP completo (comentado, disponível para reativar)
-
-| Símbolo | Variável no código | Valor sugerido | O que controla |
-|---|---|---|---|
-| $c$ | `c` | 10 | Taxa de convergência exponencial da CLF (quão rápido `Vf` persegue `Vd`) |
-| $p_{sc}$ | `psc` | 100 | Peso da penalidade sobre a variável de folga $\delta$ — quão "cara" é a relaxação da CLF |
-
-### 2.3 Parâmetros físicos do veículo (hardcoded no `fcn`)
-
-| Símbolo | Variável | Valor | Descrição |
-|---|---|---|---|
-| $m$ | `m` | 1650 kg | Massa do veículo hospedeiro |
-| $f_0, f_1, f_2$ | `f0, f1, f2` | 0.1, 5, 0.25 | Coeficientes empíricos do arrasto aerodinâmico $F_r = f_0 + f_1V_f + f_2V_f^2$ |
-
-### 2.4 Condições iniciais e configuração de simulação
-
-| Símbolo | Variável | Onde é definida | Observação |
-|---|---|---|---|
-| $V_{f0}$ | `Vf0` | Workspace, antes de rodar o `.slx` | Condição inicial do Integrator de `Vf` |
-| $D_0$ | `D0` | Workspace, antes de rodar o `.slx` | Condição inicial do Integrator de `xr` |
-| — | `StopTime` | Model Settings → Solver | Precisa ser ≥ 70 s para observar todo o perfil de `Vl(t)` definido no `fcn` |
-
-### 2.5 Restrição de conforto (atualmente **comentada** no código ativo)
-
-| Símbolo | Variável | Valor sugerido | Observação |
-|---|---|---|---|
-| $a_{max}$ | linhas `A=[...;1;-1]`, `b=[...;2.0;2.0]` | ±2.0 m/s² | **Foi a fonte do conflito identificado** (`min(hacc) = −4.2852`) quando ativada junto com a CBF sem uma barreira unificada $h_F$ |
-
-
-## 3. Fluxo de Decisão a Cada Instante de Tempo
-
-Este segundo fluxograma mostra **onde cada parâmetro entra** na lógica executada dentro do `fcn` a cada passo de simulação — útil para saber exatamente o que mexer quando quiser mudar um comportamento específico.
-
-```mermaid
-flowchart TD
-    START(["Início do passo de simulação<br/>(Vf, xr, t conhecidos)"]) --> VL["Calcula Vl(t)<br/>(perfil do líder, piecewise)"]
-    VL --> FR["Calcula Fr(Vf) = f0+f1·Vf+f2·Vf²"]
-    FR --> UNOM["unom = k·(Vd − Vf)<br/><i>k, Vd controlam agressividade</i>"]
-    UNOM --> HACC["hacc = xr − Td·Vf<br/><i>Td controla o tamanho do colchão</i>"]
-    HACC --> LIE_CALC["Lfhacc, Lghacc<br/>(derivadas de Lie)"]
-    LIE_CALC --> BUILD["Monta Hacc, Facc, A, b<br/><i>lambda controla agressividade na fronteira</i>"]
-    BUILD --> CHECK{"cbfacc_ativ == 1?"}
-    CHECK -- "Não" --> NOMINAL["ucont = unom<br/>(sem filtro de segurança!)"]
-    CHECK -- "Sim" --> QPHILD["ucont = QPhild(Hacc, Facc, A, b)"]
-    QPHILD --> FEASIBLE{"Restrições<br/>compatíveis?"}
-    FEASIBLE -- "Sim" --> SAFE["u respeita hacc ≥ 0<br/>(comportamento esperado)"]
-    FEASIBLE -- "Não<br/>(ex: CBF × conforto em conflito)" --> RISK["⚠ Hildreth pode devolver<br/>u que viola hacc"]
-    NOMINAL --> APPLY["xponto = f(x) + g(x)·u"]
-    SAFE --> APPLY
-    RISK --> APPLY
-    APPLY --> END(["Integra xponto → novo<br/>Vf, xr no próximo passo"])
-
-    style CHECK fill:#0B2545,color:#fff
-    style FEASIBLE fill:#EE6C4D,color:#fff
-    style RISK fill:#D62828,color:#fff
-    style SAFE fill:#2A9D8F,color:#fff
+```
+[hmin, idx] = min(hacc)  →  −0.0053 em t = 10.36s
 ```
 
+A prova de invariância da CBF (usada em todos os testes anteriores) assume que o `u` calculado pelo QP é **exatamente** o que é aplicado à planta. Na arquitetura de dois níveis, isso deixa de ser verdade: a planta recebe `ah`, o resultado de um mapeamento saturado (`a_th_max=3 m/s²`, `a_br_max=6 m/s²`) que pode divergir de `a_h*` — e diverge, sobretudo em `t≈0`, quando `a_h*` dispara para ~20 m/s² (nenhuma restrição de conforto existe dentro do QP para conter esse pedido) e a saturação do throttle não consegue acompanhar a tempo.
 
-## 4. Como Cada Parâmetro Afeta a Performance
+**Resultado:** uma violação pequena (`−0.0053`, ~300× menor que o caso malcondicionado `psc=100`), mas **não-nula** — prova empírica de que:
+1. A garantia formal do nível superior é uma propriedade *daquele nível isolado*, não do sistema completo;
+2. Introduzir um nível inferior com limitações físicas reais **quebra o elo** entre a prova teórica e o comportamento simulado, exigindo reverificação empírica;
+3. Isso reforça por que Ames et al. (2017, Seção III) tratam explicitamente do caso de restrições de atuação (`h_F`) — sem isso, mesmo um sistema teoricamente seguro no papel pode falhar quando confrontado com limites físicos reais de atuadores.
 
-### `Vd` — Velocidade de cruzeiro desejada
-- **↑ Aumentar:** o erro `(Vd − Vf)` cresce sempre que o líder for mais lento, aumentando `unom` e a frequência/intensidade das intervenções da CBF.
-- **↓ Diminuir:** menos conflito entre desempenho e segurança, mas o veículo "sub-utiliza" trechos de pista livre.
+### 4.4 Nota de implementação: `persistent` exige tempo de amostragem discreto
 
-### `k` — Ganho proporcional do controlador nominal
-- **↑ Aumentar:** resposta mais rápida ao erro de velocidade, porém `unom` cresce em magnitude — mais vezes o QP precisará "cortar" a ação nominal para respeitar a CBF, e mais perto se fica dos limites de conforto.
-- **↓ Diminuir:** resposta mais suave e lenta, com menor probabilidade de saturar as restrições, mas convergência mais lenta a `Vd`.
+Blocos MATLAB Function com tempo de amostragem **contínuo** (herdado do resto do modelo) não podem usar `persistent` — solvers de passo variável chamam a função múltiplas vezes por passo (estágios intermediários), o que corromperia a memória do PID. Correção: configurar o **Sample Time** do bloco para um valor discreto fixo (`0.02`, mesmo valor do `Ts` usado no cálculo do termo integral).
 
-### `lambda` (γ) — Agressividade da CBF na fronteira
-- **↑ Aumentar:** o sistema tolera se aproximar mais da fronteira `h(x)=0` antes de reagir com força total — mais "aproveitamento" da distância disponível, porém **menor margem de segurança numérica**. Foi um fator que amplificou o conflito observado com a restrição de conforto.
-- **↓ Diminuir:** reação mais cedo e mais suave conforme `h(x)` se aproxima de zero — mais conservador, distâncias de seguimento maiores que o estritamente necessário.
+---
 
-### `Td` — Time headway
-- **↑ Aumentar:** define um conjunto seguro maior (`h = xr − Td·Vf` fica mais negativo para o mesmo `xr, Vf`) — o sistema breca mais cedo e mantém mais distância. Mais seguro, porém mais conservador em termos de fluxo de tráfego.
-- **↓ Diminuir:** segue mais próximo, mas qualquer manobra do líder exige desacelerações mais fortes para preservar `h(x) ≥ 0` — aumenta a chance de esbarrar no limite de conforto.
+## 5. Dicionário de Parâmetros (consolidado)
 
-### Restrição de conforto (`±2.0 m/s²`, atualmente comentada)
-- **Achado do projeto:** ativá-la simultaneamente com a CBF de segurança, **sem unificá-las em uma única barreira** ($h_F$, ver Ames et al. 2017, Seção V-A-3), pode tornar as duas restrições simultaneamente inviáveis em cenários de fechamento rápido — foi exatamente isso que causou `min(hacc) = −4.2852`.
-- **↑ Alargar o limite** (ex: ±4 m/s²): reduz a chance de conflito, mas piora o conforto percebido.
-- **Correção recomendada:** substituir as duas restrições separadas por uma CBF baseada em força ($h_F$), que já nasce compatível com os limites de frenagem — ver seção "Próximos Passos" nos slides do TG.
+### 5.1 Parâmetros de projeto do nível superior (QP)
 
-### `c` e `psc` — (versão CLF-CBF-QP completa, atualmente comentada)
-- **`c` ↑:** convergência mais rápida ao `Vd`, mas exige esforço de controle maior em regime transitório — mais provável de tensionar a CBF.
-- **`psc` ↑:** o otimizador resiste mais a relaxar a CLF (`δ` fica pequeno) — desempenho de velocidade é defendido com mais afinco, e só cede quando a segurança está muito próxima de ser violada.
-- **`psc` ↓:** o sistema abre mão da velocidade de cruzeiro com mais facilidade diante de qualquer sinal de risco — mais conservador, porém menos "decidido" em perseguir `Vd`.
+| Símbolo | Significado | Valor recomendado | Observação |
+|---|---|---|---|
+| $V_d$ | Velocidade de cruzeiro desejada | 22 m/s | Escolha do autor (artigo usa 24) |
+| $T_d$ | Time headway | 1.8 s | Igual ao artigo |
+| $c$ | Taxa de convergência da CLF | 10 | Igual ao artigo |
+| $\lambda$ (≡ $\gamma$) | Agressividade da CBF na fronteira | 1 | Igual ao artigo |
+| $p_{sc}$ (≡ `pdacc`) | Peso da folga `δ` | **10** | Ajustado empiricamente para este cenário (ver Seção 3) |
 
-### `Vf0`, `D0` — Condições iniciais
-- Não são parâmetros de sintonia do controlador, mas **definem o ponto de partida em relação à fronteira do conjunto seguro**. Se `D0` for pequeno demais em relação a `Vf0` e `Td` (ex: `D0 < Td·Vf0`), a simulação já começa fora — ou muito perto da borda — do conjunto seguro, forçando frenagem imediata e intensa nos primeiros instantes.
+### 5.2 Parâmetros físicos do veículo
 
+| Símbolo | Valor | Descrição |
+|---|---|---|
+| $m$ | 1650 kg | Massa do veículo hospedeiro |
+| $f_0, f_1, f_2$ | 0.1, 5, 0.25 | Coeficientes do arrasto aerodinâmico |
 
-## 5. Tabela-Resumo: "O que mexer para..."
+### 5.3 Parâmetros do nível inferior (PID, arquitetura de dois níveis)
+
+| Símbolo | Valor | Descrição |
+|---|---|---|
+| `a_th_max` | 3.0 m/s² | Aceleração máxima via acelerador |
+| `a_br_max` | 6.0 m/s² | Desaceleração máxima via freio |
+| `Kp_th, Ki_th, Kd_th` | 0.6, 0.05, 0.02 | Ganhos PID do throttle |
+| `Kp_br, Ki_br, Kd_br` | 0.6, 0.05, 0.02 | Ganhos PID do freio |
+| `Ts` | 0.02 s | Período de amostragem do bloco discreto |
+
+### 5.4 Condições iniciais e simulação
+
+| Símbolo | Valor | Observação |
+|---|---|---|
+| $V_{f0}$ | 18 m/s | Definido em `INIT_ACC_2026.m` |
+| $D_0$ | 150 m | Definido em `INIT_ACC_2026.m` |
+| `tspan` | [0, 100] s | Necessário para cobrir todo o perfil do líder |
+
+---
+
+## 6. Como Cada Parâmetro Afeta a Performance
+
+- **`Vd` ↑** → maior erro médio quando o líder é mais lento → CBF intervém com mais frequência.
+- **`Td` ↑** → conjunto seguro maior, sistema mais conservador (mantém mais distância); **`Td` ↓** → segue mais próximo, mas exige desacelerações mais fortes para preservar `h(x)≥0`.
+- **`lambda` ↑** → tolera se aproximar mais da fronteira antes de reagir (mais eficiente, menos margem numérica); **↓** → reage mais cedo, mais conservador.
+- **`psc` (`pdacc`) ↑** → CLF cada vez mais rígida, comportamento se aproxima do ASIF; **↓ demais** → zona preguiçosa (ver Seção 3.2); **valor equilibrado (`≈10`)** → resolve ambos.
+- **Limites de atuador (`a_th_max`, `a_br_max`) ↓** (mais restritivos) → maior risco da violação descrita na Seção 4.3, já que o gap entre `a_h*` (irrestrito) e `ah` (saturado) cresce.
+- **`Vf0`, `D0`** → não são parâmetros de sintonia, mas definem o ponto de partida em relação à fronteira do conjunto seguro; início muito próximo da borda intensifica transientes de frenagem.
+
+---
+
+## 7. Tabela-Resumo: "O que mexer para..."
 
 | Quero que o sistema... | Parâmetro a ajustar | Direção |
 |---|---|---|
-| Converja mais rápido para `Vd` | `k` (ativo) ou `c` (CLF completa) | Aumentar |
-| Siga mais próximo do líder (menor distância) | `Td` | Diminuir (com cautela) |
-| Seja mais conservador na aproximação da fronteira segura | `lambda` (γ) | Diminuir |
-| Priorize conforto mesmo com risco de infactibilidade | Limite de aceleração (`±2.0`) | Manter apertado |
-| Elimine o conflito CBF × conforto (correção estrutural) | Implementar `hF` (barreira unificada) | — |
-| Teste apenas o comportamento nominal, sem segurança | `cbfacc_ativ` | Definir `0` |
+| Converja mais rápido para `Vd`, sem zona preguiçosa | `psc` (`pdacc`) | Aumentar (mas cuidado com mal-condicionamento acima de ~50-100) |
+| Siga mais próximo do líder | `Td` | Diminuir (com cautela) |
+| Seja mais conservador na fronteira segura | `lambda` | Diminuir |
+| Se comporte mais como o ASIF (perseguição "tudo ou nada") | `psc` | Aumentar bastante (→∞) |
+| Reduza a violação de segurança do nível inferior (Seção 4.3) | `a_th_max`, `a_br_max` (aumentar) ou adicionar restrição de conforto no QP superior | Ajustar limites físicos ou implementar `h_F` |
+| Teste apenas o comportamento nominal, sem segurança (ASIF) | `cbfacc_ativ` | Definir `0` |
 
+---
 
-## 6. Referências
+## 8. Referências
 
-- AMES, A. D.; XU, X.; GRIZZLE, J. W.; TABUADA, P. *Control barrier function based quadratic programs for safety critical systems*. IEEE TAC, 62(8), 2017. — Seção V-A-3 (barreira baseada em força, $h_F$).
-- CHINELATO, C. I. G. et al. *Design of adaptive cruise control with control barrier function and model-free control*. JCAES, 34, 2023. — arquitetura de dois níveis de referência.
-- GURRIET, T. et al. *Towards a framework for realizable safety critical control through active set invariance*. ICCPS, 2018. — formalização do ASIF (a arquitetura efetivamente usada no `fcn` ativo).
-
-
-
-
-
-
+- AMES, A. D.; GRIZZLE, J. W.; TABUADA, P. *Control barrier function based quadratic programs with application to adaptive cruise control*. IEEE CDC, 2014.
+- AMES, A. D.; XU, X.; GRIZZLE, J. W.; TABUADA, P. *Control barrier function based quadratic programs for safety critical systems*. IEEE TAC, 62(8), 2017.
+- AMES, A. D.; COOGAN, S.; EGERSTEDT, M.; NOTOMISTA, G.; SREENATH, K.; TABUADA, P. *Control barrier functions: Theory and applications*. European Control Conference (ECC), 2019.
+- GURRIET, T.; SINGLETARY, A.; REHER, J.; CIARLETTA, L.; FERON, E.; AMES, A. D. *Towards a framework for realizable safety critical control through active set invariance*. ICCPS, 2018. — fonte da arquitetura ASIF.
+- CHINELATO, C. I. G.; ANGÉLICO, B. A.; JUSTO, J. F.; LAGANÁ, A. A. M. *Design of adaptive cruise control with control barrier function and model-free control*. Journal of Control, Automation and Electrical Systems, 34, 2023. — fonte da arquitetura de dois níveis.
