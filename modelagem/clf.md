@@ -98,16 +98,6 @@ Substituindo $\dot{V}_f$ pela equação do veículo, temos a derivada completa e
 
 ### 5. Extraindo as Derivadas de Lie ($L_fV$ e $L_gV$)
 
-Para que o controlador (QP) consiga usar essa equação, precisamos separar a parte que **não depende** do controle $u$ (chamada de $L_fV$) e a parte que **multiplica** o controle $u$ (chamada de $L_gV$).
-
-Expandindo a equação anterior:
-
-<div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20%5Cdot%7BV%7D%20%3D%20%5Cunderbrace%7B%5Cleft(%20-%5Cfrac%7B2(V_f%20-%20V_d)F_r%7D%7Bm%7D%20%5Cright)%7D_%7BL_fV%7D%20%2B%20%5Cunderbrace%7B%5Cleft(%20%5Cfrac%7B2(V_f%20-%20V_d)%7D%7Bm%7D%20%5Cright)%7D_%7BL_gV%7D%20%5Ccdot%20u">
-</div>
-
-### 5.1. Derivadas de Lie da CLF
-
 Para construir a restrição linear no QP, calculamos as derivadas de Lie:
 <p>
 <div align="center">
@@ -118,6 +108,14 @@ Para construir a restrição linear no QP, calculamos as derivadas de Lie:
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20L_gV%20%3D%20%5Cnabla%20V%20%5Ccdot%20g(x)%20%3D%202(V_f%20-%20V_d)%20%5Ccdot%20%5Cleft(%20%5Cfrac%7B1%7D%7Bm%7D%20%5Cright)">
 </div>
 
+
+Para que o controlador (QP) consiga usar essa equação, precisamos separar a parte que **não depende** do controle $u$ (chamada de $L_fV$) e a parte que **multiplica** o controle $u$ (chamada de $L_gV$).
+
+Expandindo a equação anterior:
+
+<div align="center">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20%5Cdot%7BV%7D%20%3D%20%5Cunderbrace%7B%5Cleft(%20-%5Cfrac%7B2(V_f%20-%20V_d)F_r%7D%7Bm%7D%20%5Cright)%7D_%7BL_fV%7D%20%2B%20%5Cunderbrace%7B%5Cleft(%20%5Cfrac%7B2(V_f%20-%20V_d)%7D%7Bm%7D%20%5Cright)%7D_%7BL_gV%7D%20%5Ccdot%20u">
+</div>
 
 Portanto, as duas partes são:
 
