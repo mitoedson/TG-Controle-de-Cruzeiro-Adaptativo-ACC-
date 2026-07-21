@@ -67,7 +67,7 @@ Onde:
 Substituindo $F_r$ nas equações, obtemos o sistema de duas EDOs de primeira ordem acopladas:
 
 <div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20%5Cbegin%7Baligned%7D%20%5Cdot%7BV%7D_f%20%26%3D%20-%5Cfrac%7Bf_0%20%2B%20f_1%20V_f%20%2B%20f_2%20V_f%5E2%7D%7Bm%7D%20%2B%20%5Cfrac%7B1%7D%7Bm%7D%20u%20%5C%5C%20%5Cdot%7BD%7D%20%26%3D%20V_l%20-%20V_f%20%5Cend%7Baligned%7D">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20%5Cbegin%7Baligned%7D%20%5Cdot%7BV%7D_f%20%26%3D%20-%5Cfrac%7Bf_0%20%2B%20f_1%20V_f%20%2B%20f_2%20V_f%5E2%7D%7Bm%7D%20%2B%20%5Cfrac%7B1%7D%7Bm%7D%20u%20%5C%5C%20%5Cdot%7BD%7D%20%26%3D%20V_l%20-%20V_f%20%5Cend%7Baligned%7D">
 </div>
 
 ## 6. Destrinchando as EDOs: Passo a Passo para Análise
@@ -84,7 +84,7 @@ O ponto de equilíbrio ocorre quando as derivadas se anulam ($\dot{V}_f = 0$ e $
 Se quiséssemos analisar a estabilidade local (próximo ao equilíbrio), calcularíamos a matriz Jacobiana $A = \frac{\partial f}{\partial x}$:
 
 <div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20A%20%3D%20%5Cbegin%7Bbmatrix%7D%20-%5Cfrac%7Bf_1%20%2B%202f_2%20V_f%7D%7Bm%7D%20%26%200%20%5C%5C%20-1%20%26%200%20%5Cend%7Bbmatrix%7D">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20A%20%3D%20%5Cbegin%7Bbmatrix%7D%20-%5Cfrac%7Bf_1%20%2B%202f_2%20V_f%7D%7Bm%7D%20%26%200%20%5C%5C%20-1%20%26%200%20%5Cend%7Bbmatrix%7D">
 </div>
 
 **Interpretação:** Como a matriz é triangular inferior, os autovalores são os elementos da diagonal principal. Isso mostra que a estabilidade local varia com a velocidade $V_f$, comprovando a necessidade de um controle não-linear (Método Direto).
@@ -93,7 +93,7 @@ Se quiséssemos analisar a estabilidade local (próximo ao equilíbrio), calcula
 O controlador QP exige que o sistema esteja na forma afim (linear no controle $u$). Separando os termos:
 
 <div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20f(x)%20%3D%20%5Cbegin%7Bbmatrix%7D%20-%5Cfrac%7BF_r(V_f)%7D%7Bm%7D%20%5C%5C%20V_l%20-%20V_f%20%5Cend%7Bbmatrix%7D%2C%20%5Cqquad%20g(x)%20%3D%20%5Cbegin%7Bbmatrix%7D%20%5Cfrac%7B1%7D%7Bm%7D%20%5C%5C%200%20%5Cend%7Bbmatrix%7D">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20f(x)%20%3D%20%5Cbegin%7Bbmatrix%7D%20-%5Cfrac%7BF_r(V_f)%7D%7Bm%7D%20%5C%5C%20V_l%20-%20V_f%20%5Cend%7Bbmatrix%7D%2C%20%5Cqquad%20g(x)%20%3D%20%5Cbegin%7Bbmatrix%7D%20%5Cfrac%7B1%7D%7Bm%7D%20%5C%5C%200%20%5Cend%7Bbmatrix%7D">
 </div>
 
 Esta é exatamente a estrutura utilizada no seu script `LIE_2026.m` para calcular as derivadas de Lie:
