@@ -16,7 +16,7 @@ O QP deve encontrar um valor para **$$( u )$$ (aceleração)** e para **$$( \del
 O QP resolve um problema de otimização com duas variáveis de decisão:
 
 <div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20z%20%3D%20%5Cbegin%7Bbmatrix%7D%20u%20%5C%5C%20%5Cdelta%20%5Cend%7Bbmatrix%7D">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20z%20%3D%20%5Cbegin%7Bbmatrix%7D%20u%20%5C%5C%20%5Cdelta%20%5Cend%7Bbmatrix%7D">
 </div>
 
 Onde:
@@ -28,7 +28,7 @@ Onde:
 O QP minimiza a seguinte função custo quadrática:
 
 <div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20J%20%3D%20%5Cfrac%7B1%7D%7B2%7D%20u%5E2%20%2B%20p_%5Cdelta%20%5Ccdot%20%5Cdelta%5E2">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20J%20%3D%20%5Cfrac%7B1%7D%7B2%7D%20u%5E2%20%2B%20p_%5Cdelta%20%5Ccdot%20%5Cdelta%5E2">
 </div>
 
 **Interpretação:**
@@ -44,13 +44,13 @@ O QP deve obedecer a duas restrições lineares (afins em $$( u )$$).
 Como vimos, a CLF exige:
 
 <div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20L_fV%20%2B%20L_gV%20%5Ccdot%20u%20%5Cleq%20-c_V%20V%20%2B%20%5Cdelta">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20L_fV%20%2B%20L_gV%20%5Ccdot%20u%20%5Cleq%20-c_V%20V%20%2B%20%5Cdelta">
 </div>
 
 Reescrevendo para encaixar no formato \( A z \leq b \):
 
 <div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20L_gV%20%5Ccdot%20u%20-%20%5Cdelta%20%5Cleq%20-L_fV%20-%20c_V%20V">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20L_gV%20%5Ccdot%20u%20-%20%5Cdelta%20%5Cleq%20-L_fV%20-%20c_V%20V">
 </div>
 
 **Linha da CLF na matriz $$( A )$$:** $$( [L_gV, \ -1] )$$
@@ -60,13 +60,13 @@ Reescrevendo para encaixar no formato \( A z \leq b \):
 A CBF exige:
 
 <div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20L_fh%20%2B%20L_gh%20%5Ccdot%20u%20%2B%20%5Cgamma%20h%20%5Cgeq%200">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20L_fh%20%2B%20L_gh%20%5Ccdot%20u%20%2B%20%5Cgamma%20h%20%5Cgeq%200">
 </div>
 
 Reescrevendo para encaixar no formato $$( A z \leq b )$$ (multiplicando por -1 para inverter a desigualdade):
 
 <div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20-L_gh%20%5Ccdot%20u%20%5Cleq%20L_fh%20%2B%20%5Cgamma%20h">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20-L_gh%20%5Ccdot%20u%20%5Cleq%20L_fh%20%2B%20%5Cgamma%20h">
 </div>
 
 **Linha da CBF na matriz $$( A )$$:** $$( [-L_gh, \ 0] )$$
@@ -76,13 +76,13 @@ Reescrevendo para encaixar no formato $$( A z \leq b )$$ (multiplicando por -1 p
 Juntando tudo, o QP resolve o seguinte problema a cada iteração:
 
 <div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20%5Cmin_%7Bu%2C%20%5Cdelta%7D%20%5Cfrac%7B1%7D%7B2%7D%20u%5E2%20%2B%20p_%5Cdelta%20%5Cdelta%5E2">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20%5Cmin_%7Bu%2C%20%5Cdelta%7D%20%5Cfrac%7B1%7D%7B2%7D%20u%5E2%20%2B%20p_%5Cdelta%20%5Cdelta%5E2">
 </div>
 
 Sujeito a:
 
 <div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20%5Cbegin%7Bbmatrix%7D%20L_gV%20%26%20-1%20%5C%5C%20-L_gh%20%26%200%20%5Cend%7Bbmatrix%7D%20%5Cbegin%7Bbmatrix%7D%20u%20%5C%5C%20%5Cdelta%20%5Cend%7Bbmatrix%7D%20%5Cleq%20%5Cbegin%7Bbmatrix%7D%20-L_fV%20-%20c_V%20V%20%5C%5C%20L_fh%20%2B%20%5Cgamma%20h%20%5Cend%7Bbmatrix%7D">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20%5Cbegin%7Bbmatrix%7D%20L_gV%20%26%20-1%20%5C%5C%20-L_gh%20%26%200%20%5Cend%7Bbmatrix%7D%20%5Cbegin%7Bbmatrix%7D%20u%20%5C%5C%20%5Cdelta%20%5Cend%7Bbmatrix%7D%20%5Cleq%20%5Cbegin%7Bbmatrix%7D%20-L_fV%20-%20c_V%20V%20%5C%5C%20L_fh%20%2B%20%5Cgamma%20h%20%5Cend%7Bbmatrix%7D">
 </div>
 
 ## 6. Como o QP "Medeia" o Conflito? (A Mecânica da Decisão)
