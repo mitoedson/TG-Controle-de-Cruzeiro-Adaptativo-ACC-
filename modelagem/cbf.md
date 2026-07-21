@@ -5,26 +5,13 @@ No ACC, a região segura é definida pela distância entre os carros: ela nunca 
 
 ## 1. Função de Barreira de Controle (CBF) - Segurança
 
-Para aplicar a CBF, precisamos definir matematicamente o que é "seguro". Definimos o conjunto $$( \mathcal{C} )$$ (safe set) como:
+Para aplicar a CBF, precisamos definir matematicamente o que é "seguro". Definimos o conjunto $\mathcal{C}$$ (safe set) como:
 
 <div align="center">
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20%5Cmathcal%7BC%7D%20%3D%20%5C%7B%20x%20%5Cin%20%5Cmathbb%7BR%7D%5E2%20%5C%2C%20%7C%20%5C%2C%20h(x)%20%5Cgeq%200%20%5C%7D">
 </div>
 
-**A Função $$( h(x) )$$:**
-A função que define a fronteira da segurança no ACC é a distância relativa descontada do tempo de reação $$\( \tau_h )$$):
-
-<div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20h(x)%20%3D%20D%20-%20%5Ctau_h%20%5Ccdot%20V_f">
-</div>
-
-- Se $(h(x) > 0)$: Estamos seguros (distância folgada).
-- Se $(h(x) = 0)$: Estamos no limite da segurança (fronteira).
-- Se $(h(x) < 0)$: Violamos a segurança (colisão ou distância perigosa).
-
-
-
-A segurança no ACC é definida pela manutenção de uma distância mínima em relação ao veículo líder. Define-se a CBF como:
+A função **$h(x)$** que define a fronteira da segurança no ACC é a distância relativa (distância mínima em relação ao veículo líder) descontada do tempo de reação $\tau_h$:
 
 <div align="center">
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20h(x)%20%3D%20D%20-%20%5Ctau_h%20%5Ccdot%20V_f">
@@ -32,6 +19,10 @@ A segurança no ACC é definida pela manutenção de uma distância mínima em r
 
 Onde:
 - $$( \tau_h > 0 )$$: Tempo de headway desejado (ex: 1.8 segundos). Garante que a distância seja proporcional à velocidade.
+- Se $(h(x) > 0)$: Estamos seguros (distância folgada).
+- Se $(h(x) = 0)$: Estamos no limite da segurança (fronteira).
+- Se $(h(x) < 0)$: Violamos a segurança (colisão ou distância perigosa).
+
 
 ### 1.1. Derivadas de Lie da CBF
 
