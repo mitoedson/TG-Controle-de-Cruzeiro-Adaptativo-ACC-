@@ -87,5 +87,3 @@ $$L_f V(x) + L_g V(x) \cdot u \le -c \cdot V(x) + \delta$$
 
 Se o veículo precisar frear bruscamente para não bater (ação imposta pela CBF), o otimizador QP aumentará temporariamente o valor de $\delta$, permitindo que a restrição de Lyapunov seja violada ($\dot{V}(e) > 0$) pelo tempo necessário para garantir a sobrevivência física do veículo.
 
----
-repositório, você pode colocar esse texto em uma seção dedicada no arquivo `docs/CLF.md`. Isso demonstrará de forma inequívoca o embasamento científico por trás das linhas de código do seu Simulink!
