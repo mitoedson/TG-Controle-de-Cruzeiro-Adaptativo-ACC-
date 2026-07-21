@@ -18,8 +18,8 @@ O QP resolve um problema de otimização com duas variáveis de decisão:
 </div>
 
 Onde:
-- **$$( u )$$** = Aceleração/frenagem comandada (m/s²).
-- **$$( \delta )$$** = Relaxação da CLF (adimensional). Quanto maior, mais a CLF é "ignorada".
+- **$u$** = Aceleração/frenagem comandada (m/s²).
+- **$\delta$** = Relaxação da CLF (adimensional). Quanto maior, mais a CLF é "ignorada".
 
 ## 2. A Função de Custo (O que o QP minimiza?)
 
