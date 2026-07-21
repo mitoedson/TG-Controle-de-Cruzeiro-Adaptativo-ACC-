@@ -27,19 +27,19 @@ Sujeito às restrições:
 </div>
 
 Onde:
-- $$( H )$$: Matriz de ponderação do controle (ex: $$( H = 1/m^2 )$$ para minimizar o esforço de força).
-- $$( p_\delta )$$: Peso da relaxação (deve ser um valor alto, ex: $$( 10^5 )$$, para que o QP só use $$( \delta > 0 )$$ em emergências).
+- $H$: Matriz de ponderação do controle (ex: $H = 1/m^2$ para minimizar o esforço de força).
+- $p_\delta$: Peso da relaxação (deve ser um valor alto, ex: $10^5$, para que o QP só use $\delta > 0$ em emergências).
 
 
 ## 4. Interpretação Física do Sistema de Equações
 
 | Elemento | Equação | Significado Físico |
 | :--- | :--- | :--- |
-| **Estado** | $$( V_f, D )$$ | Velocidade do carro e distância até o da frente. |
-| **Controle** | $$( u )$$ | Força aplicada nas rodas (acelerar/frear). |
-| **CLF** | $$( V = (V_f - V_d)^2 )$$ | Mede o "erro" de velocidade. Queremos que ela chegue a zero. |
-| **CBF** | $$( h = D - \tau_h V_f )$$ | Mede a "folga" de segurança. Queremos que ela seja sempre positiva. |
-| **QP** | Minimiza $$( u^2 + p_\delta \delta^2 )$$ | Encontra a aceleração que satisfaz as restrições com o menor esforço possível. |
+| **Estado** | $V_f, D$ | Velocidade do carro e distância até o da frente. |
+| **Controle** | $u$ | Força aplicada nas rodas (acelerar/frear). |
+| **CLF** | $V = (V_f - V_d)^2$ | Mede o "erro" de velocidade. Queremos que ela chegue a zero. |
+| **CBF** | $h = D - \tau_h V_f$ | Mede a "folga" de segurança. Queremos que ela seja sempre positiva. |
+| **QP** | Minimiza $u^2 + p_\delta \delta^2$ | Encontra a aceleração que satisfaz as restrições com o menor esforço possível. |
 
 
 **Nota Final:** Este sistema de equações é a base teórica implementada no seu modelo Simulink (`ACC_TESTE_2026`) e resolvida numericamente pelo algoritmo de Hildreth (`QPhild.m`). Enquanto 
