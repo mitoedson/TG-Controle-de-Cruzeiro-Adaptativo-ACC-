@@ -121,7 +121,7 @@ Portanto, as duas partes são:
 
 
 
-## 5. A Condição de Estabilidade Exponencial (A Desigualdade da CLF)
+## 6. A Condição de Estabilidade Exponencial (A Desigualdade da CLF)
 
 Para garantir que o erro de velocidade caia exponencialmente para zero (ou seja, $e^{-\alpha t}$), a teoria de Lyapunov exige que a derivada de $V$ seja negativa e proporcional à própria $V$:
 
@@ -141,7 +141,7 @@ $\delta \$: Variável de relaxação (slack), que permite sacrificar a estabilid
 
 
 
-## 6. A Relaxação ($\delta$) e sua relação com a segurança
+## 7. A Relaxação ($\delta$) e sua relação com a segurança
 
 A condição de estabilidade exponencial é imposta pela desigualdade:
 <p>
@@ -156,7 +156,7 @@ Se a restrição acima for muito rígida, pode não existir solução quando a s
 - Se $\delta > 0$: A CLF é relaxada. O carro **prioriza a segurança** (freia) em vez de seguir $V_d$. O QP minimiza $\delta^2$ com um peso altíssimo para que isso só aconteça em emergências.
 
 
-## 7. Conexão Direta com o seu Código MATLAB (`LIE_2026.m`)
+## 8. Conexão Direta com o seu Código MATLAB (`LIE_2026.m`)
 
 Toda essa dedução matemática está implementada no seu script de Lie. Abra o arquivo `LIE_2026.m` e veja a correspondência:
 
@@ -167,7 +167,7 @@ Toda essa dedução matemática está implementada no seu script de Lie. Abra o 
 | $L_gV$ | `LgVacc = transpose(gradient(Vacc,[Vf,xr]))*g` | Calcula o coeficiente que multiplica o controle $u$. |
 
 
-## 8. Conclusão
+## 9. Conclusão
 
 A Função de Lyapunov de Controle (CLF) foi definida como o quadrado do erro de velocidade, $V(e) = (V_f - V_d)^2$, assegurando que a função seja positiva definida e radialmente ilimitada. Calculando a derivada temporal e separando-a em $L_fV$ e $L_gV$, obteve-se a condição de estabilidade exponencial $L_fV + L_gV u \le -c_V V$. Para integrar esta condição ao QP e permitir a priorização da segurança, a restrição foi relaxada pela variável $\delta$, resultando na forma final $L_fV + L_gV u \le -c_V V + \delta$. Portanto, a CLF atua como um 'desejo' de desempenho que é temporariamente suspenso (via $\delta$) sempre que a segurança (CBF) está em risco.
 
@@ -195,17 +195,5 @@ Para construir a restrição linear no QP, calculamos as derivadas de Lie:
 <div align="center">
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20L_gV%20%3D%20%5Cnabla%20V%20%5Ccdot%20g(x)%20%3D%202(V_f%20-%20V_d)%20%5Ccdot%20%5Cleft(%20%5Cfrac%7B1%7D%7Bm%7D%20%5Cright)">
 </div>
-
-
-
-<a href="modelandoclf.md">Ver modelagem do CLF.</a>
-
-
-
-
-
-
-
-
 
 
