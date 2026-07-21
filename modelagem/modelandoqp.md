@@ -2,8 +2,6 @@
 
 O QP recebe as duas restrições (CLF e CBF) e calcula o controle $u$ que satisfaz ambas da melhor forma possível.
 
-## 1. O que o QP precisa decidir?
-
 A cada instante de tempo, o QP recebe:
 
 - **O desejo da CLF**: Acelerar para chegar em $$( V_d )$$.
@@ -11,7 +9,7 @@ A cada instante de tempo, o QP recebe:
 
 O QP deve encontrar um valor para **$$( u )$$ (aceleração)** e para **$$( \delta )$$ (relaxação)** que minimize uma função de custo, respeitando as duas restrições.
 
-## 2. As Variáveis do QP
+## 1. As Variáveis do QP
 
 O QP resolve um problema de otimização com duas variáveis de decisão:
 
@@ -23,7 +21,7 @@ Onde:
 - **$$( u )$$** = Aceleração/frenagem comandada (m/s²).
 - **$$( \delta )$$** = Relaxação da CLF (adimensional). Quanto maior, mais a CLF é "ignorada".
 
-## 3. A Função de Custo (O que o QP minimiza?)
+## 2. A Função de Custo (O que o QP minimiza?)
 
 O QP minimiza a seguinte função custo quadrática:
 
@@ -35,7 +33,7 @@ O QP minimiza a seguinte função custo quadrática:
 - **$$( \frac{1}{2} u^2 )$$**: Penaliza acelerações/frenagens muito fortes (conforto e eficiência).
 - **$$( p_\delta \delta^2 )$$**: Penaliza a relaxação da CLF. O peso $$( p_\delta )$$ é altíssimo (ex: $$( 10^5 )$$), então o QP **odeia** usar $$( \delta > 0 )$$. Só usa em emergências.
 
-## 4. As Restrições (As "Regras do Jogo")
+## 3. As Restrições (As "Regras do Jogo")
 
 O QP deve obedecer a duas restrições lineares (afins em $$( u )$$).
 
@@ -71,7 +69,7 @@ Reescrevendo para encaixar no formato $$( A z \leq b )$$ (multiplicando por -1 p
 
 **Linha da CBF na matriz $$( A )$$:** $$( [-L_gh, \ 0] )$$
 
-## 5. O Sistema Completo (Forma Matricial $$( Az \leq b )$$)
+## 4. O Sistema Completo (Forma Matricial $$( Az \leq b )$$)
 
 Juntando tudo, o QP resolve o seguinte problema a cada iteração:
 
@@ -85,7 +83,7 @@ Sujeito a:
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20%5Cbegin%7Bbmatrix%7D%20L_gV%20%26%20-1%20%5C%5C%20-L_gh%20%26%200%20%5Cend%7Bbmatrix%7D%20%5Cbegin%7Bbmatrix%7D%20u%20%5C%5C%20%5Cdelta%20%5Cend%7Bbmatrix%7D%20%5Cleq%20%5Cbegin%7Bbmatrix%7D%20-L_fV%20-%20c_V%20V%20%5C%5C%20L_fh%20%2B%20%5Cgamma%20h%20%5Cend%7Bbmatrix%7D">
 </div>
 
-## 6. Como o QP "Medeia" o Conflito? (A Mecânica da Decisão)
+## 5. Como o QP media o Conflito?
 
 O QP analisa as duas restrições e toma a decisão em 3 passos:
 
@@ -98,7 +96,7 @@ O QP analisa as duas restrições e toma a decisão em 3 passos:
 **Geometricamente:** O QP encontra o ponto mais próximo da origem (no espaço $$( u \times \delta )$$) que ainda está dentro da região viável definida pelas duas retas (restrições).
 
 
-## 7. Conexão com seu Código (`QPhild.m` e Simulink)
+## 6. Conexão com seu Código (`QPhild.m` e Simulink)
 
 No seu bloco `CLF_CBF_QP` do Simulink, você monta as matrizes:
 
@@ -111,7 +109,7 @@ No seu bloco `CLF_CBF_QP` do Simulink, você monta as matrizes:
 
 E chama o `QPhild.m`, que resolve este sistema $$( Az \leq b )$$ usando o algoritmo de Hildreth, retornando $$( u )$$ e $$( \delta )$$.
 
-## 8. Conclusão
+## 7. Conclusão
 
 "O QP atua como um mecanismo de mediação entre a CLF e a CBF, resolvendo um problema de otimização quadrática que minimiza o esforço de controle $$( u^2 )$$ e a relaxação da CLF $$( \delta^2 )$$. As restrições da CLF e da CBF são formuladas como desigualdades lineares afins em $$( u )$$, resultando em um problema convexo de rápida solução. Quando as restrições entram em conflito, o QP prioriza a CBF (rígida) e eleva o valor de $$( \delta )$$ (relaxação da CLF) apenas o suficiente para garantir a factibilidade. Esta estrutura garante que a segurança nunca seja violada, enquanto o desempenho é otimizado sempre que possível."
 
