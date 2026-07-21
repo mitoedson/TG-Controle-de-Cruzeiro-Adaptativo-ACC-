@@ -54,6 +54,10 @@ O objetivo de desempenho é fazer com que a velocidade do veículo $V_f$ rastrei
 <p>
 Se conseguirmos fazer com que $e \to 0$, o carro atingiu a velocidade desejada.
 
+<a href="/teoria/funcaodiretalyapunov.md">Ver Função Direta de Lyapunov</a><br>
+<a href="/teoria/funcaoindiretalyapunov.md">Ver Função Indireta de Lyapunov</a><br>
+<a href="/teoria/lyapunovparaacc.md">Adaptação da Função de Lyapunov para ACC</a>
+
 ## 3. A Função de Lyapunov Candidata 
 
 A função de Lyapunov mais clássica e intuitiva para erros de rastreamento é o **quadrado do erro**. Ela é sempre positiva (exceto na origem) e mede a "energia" do erro.
@@ -68,10 +72,6 @@ A função de Lyapunov mais clássica e intuitiva para erros de rastreamento é 
    - $V(x) > 0$ para todo $V_f \neq V_d$.
 2. **Radialmente Ilimitada**: 
    - Quando $V_f \to \infty$, $V(x) \to \infty$. Isso garante estabilidade global (não importa se o carro está a 10 m/s ou 100 m/s, a função funciona).
-
-<a href="/teoria/funcaodiretalyapunov.md">Ver Função Direta de Lyapunov</a><br>
-<a href="/teoria/funcaoindiretalyapunov.md">Ver Função Indireta de Lyapunov</a><br>
-<a href="/teoria/lyapunovparaacc.md">Adaptação da Função de Lyapunov para ACC</a>
 
 ## 4. Calculando a Derivada Temporal ($\dot{V}$)
 
