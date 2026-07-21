@@ -87,11 +87,11 @@ Sujeito a:
 
 O QP analisa as duas restrições e toma a decisão em 3 passos:
 
-1.  **Tenta $\delta = 0$**: O QP primeiro verifica se existe algum $$( u )$$ que satisfaça **ambas** as restrições com $\delta = 0$. Se existir, ótimo! A CLF é respeitada integralmente, e o carro acelera/freia para seguir $V_d$ sem relaxação.
+1.  **Tenta $\delta = 0$**: O QP primeiro verifica se existe algum $u$ que satisfaça **ambas** as restrições com $\delta = 0$. Se existir, ótimo! A CLF é respeitada integralmente, e o carro acelera/freia para seguir $V_d$ sem relaxação.
 
-2.  **Conflito (A CBF Vence)**: Se não existe $$( u )$$ que satisfaça as duas ao mesmo tempo (ex: a CLF quer acelerar, mas a CBF exige frenagem forte), o QP **aumenta o valor de $\delta$**. Isso "alivia" a restrição da CLF (o lado direito fica menos negativo ou positivo), permitindo que o QP escolha um $$( u )$$ que satisfaça a CBF.
+2.  **Conflito (A CBF Vence)**: Se não existe $$( u )$$ que satisfaça as duas ao mesmo tempo (ex: a CLF quer acelerar, mas a CBF exige frenagem forte), o QP **aumenta o valor de $\delta$**. Isso "alivia" a restrição da CLF (o lado direito fica menos negativo ou positivo), permitindo que o QP escolha um $u$ que satisfaça a CBF.
 
-3.  **O $\delta$ é penalizado**: Como $$( p_\delta )$$ é altíssimo, o QP calcula o **menor $\delta$ possível** que ainda permite satisfazer a CBF. Assim que o perigo passa, o QP reduz $\delta$ a zero.
+3.  **O $\delta$ é penalizado**: Como $p_\delta$ é altíssimo, o QP calcula o **menor $\delta$ possível** que ainda permite satisfazer a CBF. Assim que o perigo passa, o QP reduz $\delta$ a zero.
 
 **Geometricamente:** O QP encontra o ponto mais próximo da origem (no espaço $u \times \delta$) que ainda está dentro da região viável definida pelas duas retas (restrições).
 
