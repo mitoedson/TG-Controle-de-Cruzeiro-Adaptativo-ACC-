@@ -7,7 +7,7 @@ O objetivo é mostrar como saímos do "erro de velocidade" e chegamos na restri�
 Define-se o vetor de estados do veículo controlado como:
 
 <div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20x%20%3D%20%5B%20V_f%2C%20D%20%5D%5ET">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20x%20%3D%20%5B%20V_f%2C%20D%20%5D%5ET">
 </div>
 
 onde:
@@ -21,18 +21,18 @@ onde:
 A dinâmica do sistema é descrita pelas equações diferenciais ordinárias:
 
 <div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20%5Cdot%7BV%7D_f%20%3D%20-%5Cfrac%7BF_r(V_f)%7D%7Bm%7D%20%2B%20%5Cfrac%7B1%7D%7Bm%7D%20u">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20%5Cdot%7BV%7D_f%20%3D%20-%5Cfrac%7BF_r(V_f)%7D%7Bm%7D%20%2B%20%5Cfrac%7B1%7D%7Bm%7D%20u">
 </div>
 <p>
 <div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20%5Cdot%7BD%7D%20%3D%20V_l%20-%20V_f">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20%5Cdot%7BD%7D%20%3D%20V_l%20-%20V_f">
 </div>
 <p>
 
 Reescrevendo na forma afim padrão para controle $\dot{x} = f(x) + g(x)u$:
 
 <div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20f(x)%20%3D%20%5Cbegin%7Bbmatrix%7D%20-%5Cfrac%7BF_r(V_f)%7D%7Bm%7D%20%5C%5C%20V_l%20-%20V_f%20%5Cend%7Bbmatrix%7D%2C%20%5Cquad%20g(x)%20%3D%20%5Cbegin%7Bbmatrix%7D%20%5Cfrac%7B1%7D%7Bm%7D%20%5C%5C%200%20%5Cend%7Bbmatrix%7D">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20f(x)%20%3D%20%5Cbegin%7Bbmatrix%7D%20-%5Cfrac%7BF_r(V_f)%7D%7Bm%7D%20%5C%5C%20V_l%20-%20V_f%20%5Cend%7Bbmatrix%7D%2C%20%5Cquad%20g(x)%20%3D%20%5Cbegin%7Bbmatrix%7D%20%5Cfrac%7B1%7D%7Bm%7D%20%5C%5C%200%20%5Cend%7Bbmatrix%7D">
 </div>
 
 <a href="modelandosistema.md">Ir para Modelagem do sistema.</a>
@@ -42,13 +42,13 @@ Reescrevendo na forma afim padrão para controle $\dot{x} = f(x) + g(x)u$:
 O primeiro passo para construir qualquer função de Lyapunov para rastreamento é definir a variável que queremos levar a zero. Definimos o erro de velocidade como:
 
 <div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20e%20%3D%20V_f%20-%20V_d">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20e%20%3D%20V_f%20-%20V_d">
 </div>
 
 O objetivo de desempenho é fazer com que a velocidade do veículo $V_f$ rastreie a velocidade desejada $V_d$. Define-se a CLF como o quadrado do erro de rastreamento:
 
 <div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20V(x)%20%3D%20(V_f%20-%20V_d)%5E2">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20V(x)%20%3D%20(V_f%20-%20V_d)%5E2">
 </div>
 
 <p>
@@ -63,7 +63,7 @@ Se conseguirmos fazer com que $e \to 0$, o carro atingiu a velocidade desejada.
 A função de Lyapunov mais clássica e intuitiva para erros de rastreamento é o **quadrado do erro**. Ela é sempre positiva (exceto na origem) e mede a "energia" do erro.
 
 <div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20V(x)%20%3D%20e%5E2%20%3D%20(V_f%20-%20V_d)%5E2">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20V(x)%20%3D%20e%5E2%20%3D%20(V_f%20-%20V_d)%5E2">
 </div>
 
 **Verificação dos requisitos matemáticos:**
@@ -78,24 +78,24 @@ A função de Lyapunov mais clássica e intuitiva para erros de rastreamento é 
 Aplicando a regra da cadeia para derivar $V$:
 
 <div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20%5Cdot%7BV%7D%20%3D%20%5Cfrac%7Bd%7D%7Bdt%7D(e%5E2)%20%3D%202%20%5Ccdot%20e%20%5Ccdot%20%5Cfrac%7Bde%7D%7Bdt%7D">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20%5Cdot%7BV%7D%20%3D%20%5Cfrac%7Bd%7D%7Bdt%7D(e%5E2)%20%3D%202%20%5Ccdot%20e%20%5Ccdot%20%5Cfrac%7Bde%7D%7Bdt%7D">
 </div>
 <p>
 Derivando o erro $e = V_f - V_d$ em relação ao tempo.
 <p>
 <div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20%5Cfrac%7Bde%7D%7Bdt%7D%20%3D%20%5Cdot%7BV%7D_f%20-%20%5Cdot%7BV%7D_d%20%3D%20%5Cdot%7BV%7D_f%20-%200%20%3D%20%5Cdot%7BV%7D_f">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20%5Cfrac%7Bde%7D%7Bdt%7D%20%3D%20%5Cdot%7BV%7D_f%20-%20%5Cdot%7BV%7D_d%20%3D%20%5Cdot%7BV%7D_f%20-%200%20%3D%20%5Cdot%7BV%7D_f">
 </div>
 <p>
 Lembrando da dinâmica do veículo (vinda da modelagem anterior):
 <div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20%5Cdot%7BV%7D_f%20%3D%20-%5Cfrac%7BF_r%7D%7Bm%7D%20%2B%20%5Cfrac%7B1%7D%7Bm%7D%20u">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20%5Cdot%7BV%7D_f%20%3D%20-%5Cfrac%7BF_r%7D%7Bm%7D%20%2B%20%5Cfrac%7B1%7D%7Bm%7D%20u">
 </div>
 <p>
 Substituindo $\dot{V}_f$ pela equação do veículo, temos a derivada completa expandida:
 <p>
 <div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20%5Cdot%7BV%7D%20%3D%202(V_f%20-%20V_d)%20%5Ccdot%20%5Cleft(%20-%5Cfrac%7BF_r%7D%7Bm%7D%20%2B%20%5Cfrac%7B1%7D%7Bm%7D%20u%20%5Cright)">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20%5Cdot%7BV%7D%20%3D%202(V_f%20-%20V_d)%20%5Ccdot%20%5Cleft(%20-%5Cfrac%7BF_r%7D%7Bm%7D%20%2B%20%5Cfrac%7B1%7D%7Bm%7D%20u%20%5Cright)">
 </div>
 
 
@@ -104,11 +104,11 @@ Substituindo $\dot{V}_f$ pela equação do veículo, temos a derivada completa e
 Para construir a restrição linear no QP, calculamos as derivadas de Lie:
 <p>
 <div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20L_fV%20%3D%20%5Cnabla%20V%20%5Ccdot%20f(x)%20%3D%202(V_f%20-%20V_d)%20%5Ccdot%20%5Cleft(%20-%5Cfrac%7BF_r(V_f)%7D%7Bm%7D%20%5Cright)">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20L_fV%20%3D%20%5Cnabla%20V%20%5Ccdot%20f(x)%20%3D%202(V_f%20-%20V_d)%20%5Ccdot%20%5Cleft(%20-%5Cfrac%7BF_r(V_f)%7D%7Bm%7D%20%5Cright)">
 </div>
 <p>
 <div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20L_gV%20%3D%20%5Cnabla%20V%20%5Ccdot%20g(x)%20%3D%202(V_f%20-%20V_d)%20%5Ccdot%20%5Cleft(%20%5Cfrac%7B1%7D%7Bm%7D%20%5Cright)">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20L_gV%20%3D%20%5Cnabla%20V%20%5Ccdot%20g(x)%20%3D%202(V_f%20-%20V_d)%20%5Ccdot%20%5Cleft(%20%5Cfrac%7B1%7D%7Bm%7D%20%5Cright)">
 </div>
 
 
@@ -117,19 +117,19 @@ Para que o controlador (QP) consiga usar essa equação, precisamos separar a pa
 Expandindo a equação anterior:
 
 <div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20%5Cdot%7BV%7D%20%3D%20%5Cunderbrace%7B%5Cleft(%20-%5Cfrac%7B2(V_f%20-%20V_d)F_r%7D%7Bm%7D%20%5Cright)%7D_%7BL_fV%7D%20%2B%20%5Cunderbrace%7B%5Cleft(%20%5Cfrac%7B2(V_f%20-%20V_d)%7D%7Bm%7D%20%5Cright)%7D_%7BL_gV%7D%20%5Ccdot%20u">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20%5Cdot%7BV%7D%20%3D%20%5Cunderbrace%7B%5Cleft(%20-%5Cfrac%7B2(V_f%20-%20V_d)F_r%7D%7Bm%7D%20%5Cright)%7D_%7BL_fV%7D%20%2B%20%5Cunderbrace%7B%5Cleft(%20%5Cfrac%7B2(V_f%20-%20V_d)%7D%7Bm%7D%20%5Cright)%7D_%7BL_gV%7D%20%5Ccdot%20u">
 </div>
 
 Portanto, as duas partes são:
 
 **1. Derivada de Lie em relação a f (arrasto e cinemática):**
 <div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20L_fV%20%3D%20-%5Cfrac%7B2(V_f%20-%20V_d)%20%5Ccdot%20F_r%7D%7Bm%7D">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20L_fV%20%3D%20-%5Cfrac%7B2(V_f%20-%20V_d)%20%5Ccdot%20F_r%7D%7Bm%7D">
 </div>
 
 **2. Derivada de Lie em relação a g (o multiplicador do controle):**
 <div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20L_gV%20%3D%20%5Cfrac%7B2(V_f%20-%20V_d)%7D%7Bm%7D">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20L_gV%20%3D%20%5Cfrac%7B2(V_f%20-%20V_d)%7D%7Bm%7D">
 </div>
 
 
@@ -140,13 +140,13 @@ Portanto, as duas partes são:
 Para garantir que o erro de velocidade caia exponencialmente para zero (ou seja, $e^{-\alpha t}$), a teoria de Lyapunov exige que a derivada de $V$ seja negativa e proporcional à própria $V$:
 
 <div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20%5Cdot%7BV%7D%20%5Cleq%20-c_V%20%5Ccdot%20V">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20%5Cdot%7BV%7D%20%5Cleq%20-c_V%20%5Ccdot%20V">
 </div>
 
 Substituindo $\dot{V}$ pela forma $L_fV + L_gV \cdot u$, obtemos a **restrição linear** que será usada no QP:
 
 <div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20L_fV%20%2B%20L_gV%20%5Ccdot%20u%20%5Cleq%20-c_V%20V">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20L_fV%20%2B%20L_gV%20%5Ccdot%20u%20%5Cleq%20-c_V%20V">
 </div>
 
 Onde $c_V > 0$ é a **taxa de convergência (ou taxa de decaimento exponencial)**. Quanto maior o $c_V$, mais rápido o carro acelera/freia para atingir a velocidade desejada, e quanto menor o $c_V$, a aceleração é mais lenta. A taxa de convergência deve ser configurada para encontrar um valor intermediário. 
@@ -160,7 +160,7 @@ $\delta \$: Variável de relaxação (slack), que permite sacrificar a estabilid
 A condição de estabilidade exponencial é imposta pela desigualdade:
 <p>
 <div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20L_fV%20%2B%20L_gV%20%5Ccdot%20u%20%5Cleq%20-c_V%20V(x)%20%2B%20%5Cdelta">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20L_fV%20%2B%20L_gV%20%5Ccdot%20u%20%5Cleq%20-c_V%20V(x)%20%2B%20%5Cdelta">
 </div>
 
 Se a restrição acima for muito rígida, pode não existir solução quando a segurança (CBF) exigir frenagem forte. Para resolver isso, a teoria introduz a **variável de relaxação ($\delta$)**
@@ -186,7 +186,7 @@ Toda essa dedução matemática está implementada no seu script de Lie. Abra o 
 A Função de Lyapunov de Controle (CLF) foi definida como o quadrado do erro de velocidade, $V(e) = (V_f - V_d)^2$, assegurando que a função seja positiva definida e radialmente ilimitada. Calculando a derivada temporal e separando-a em $L_fV$ e $L_gV$, obteve-se a condição de estabilidade exponencial $L_fV + L_gV u \le -c_V V$. Para integrar esta condição ao QP e permitir a priorização da segurança, a restrição foi relaxada pela variável $\delta$, resultando na forma final $L_fV + L_gV u \le -c_V V + \delta$. Portanto, a CLF atua como um 'desejo' de desempenho que é temporariamente suspenso (via $\delta$) sempre que a segurança (CBF) está em risco.
 
 A relaxação $\delta$ permite que a derivada da CLF seja temporariamente positiva, o que, à primeira vista, violaria as condições clássicas do Teorema Direto de Lyapunov. Entretanto, essa violação é estritamente temporária e ocorre apenas quando a restrição de segurança (CBF) está ativa. A teoria de estabilidade entrada-estado (ISS) garante que, enquanto 
-$\delta$ for limitado e penalizado na função custo do QP, o erro de velocidade permanecerá uniformemente limitado. Assim que a situação de risco cessa, o QP força $\delta$ a zero, restaurando a condição de estabilidade exponencial <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20L_fV%20%2B%20L_gV%20%5Ccdot%20u%20%5Cleq%20-c_V%20V">
+$\delta$ for limitado e penalizado na função custo do QP, o erro de velocidade permanecerá uniformemente limitado. Assim que a situação de risco cessa, o QP força $\delta$ a zero, restaurando a condição de estabilidade exponencial <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20L_fV%20%2B%20L_gV%20%5Ccdot%20u%20%5Cleq%20-c_V%20V">
 ​ e garantindo a convergência da velocidade para o valor desejado.
 
 
