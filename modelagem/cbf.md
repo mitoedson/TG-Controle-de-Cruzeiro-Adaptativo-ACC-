@@ -105,14 +105,14 @@ Onde $\gamma > 0$: Parâmetro que ajusta a "agressividade" da barreira. Quanto m
 
 ## 6. O Parâmetro $$( \gamma )$$ (O "Gatilho" da Segurança)
 
-Assim como $$( c_V )$$ define a agressividade da CLF, $$( \gamma )$$ define a "sensibilidade" da CBF.
+Assim como $c_V$ define a agressividade da CLF, $\gamma$ define a "sensibilidade" da CBF.
 
 - **$\gamma$ alto**: O carro começa a frear **muito antes** de chegar perto do carro da frente. A segurança é priorizada, mas o carro pode ser excessivamente cauteloso, irritando os motoristas de trás.
 - **$\gamma$ baixo**: O carro só freia no **último segundo** possível. A segurança ainda é garantida, mas a frenagem será muito brusca (desconfortável e perigosa para o carro de trás).
 - **Valor típico na literatura**: Geralmente entre 1 e 5, ajustado para equilibrar conforto e segurança.
 
 
-## 7. Conexão Direta com o seu Código (`LIE_2026.m`)
+## 7. Conexão Direta com o Código (`LIE_2026.m`)
 
 Toda essa dedução matemática está implementada no seu script. Veja a correspondência:
 
