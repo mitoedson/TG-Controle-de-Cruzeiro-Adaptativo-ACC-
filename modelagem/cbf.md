@@ -40,18 +40,18 @@ Para estender essa condição para **todo o conjunto seguro** (e não só na bor
 Onde $\gamma$ é a taxa de decaimento máxima permitida, e $h$ a função de barreira. 
 
 **Interpretação Física:**
-- Se $$( h )$$ está grande (longe do perigo), $$( \dot{h} )$$ pode ser um pouco negativo (distância diminuindo), desde que $$( \gamma h )$$ compense isso.
-- Se $$( h )$$ está pequeno (perto do perigo), $$( \dot{h} )$$ **precisa ser positivo** (a distância precisa estar aumentando, ou seja, o carro está freando para abrir espaço).
+- Se $h$ está grande (longe do perigo), $\dot{h}$ pode ser um pouco negativo (distância diminuindo), desde que $\gamma h$ compense isso.
+- Se $h$ está pequeno (perto do perigo), $\dot{h}$ **precisa ser positivo** (a distância precisa estar aumentando, ou seja, o carro está freando para abrir espaço).
 
 ## 3. Aplicando a Regra da Cadeia
 
-Para o QP usar essa restrição, precisamos explicitar o controle $$( u )$$ em $$( \dot{h} )$$. Aplicamos a Regra da Cadeia:
+Para o QP usar essa restrição, precisamos explicitar o controle $u$ em $\dot{h}$. Aplicamos a Regra da Cadeia:
 
 <div align="center">
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20%5Cdot%7Bh%7D%20%3D%20%5Cfrac%7B%5Cpartial%20h%7D%7B%5Cpartial%20D%7D%20%5Ccdot%20%5Cdot%7BD%7D%20%2B%20%5Cfrac%7B%5Cpartial%20h%7D%7B%5Cpartial%20V_f%7D%20%5Ccdot%20%5Cdot%7BV%7D_f">
 </div>
 
-Substituindo as derivadas parciais de $$( h = D - \tau_h V_f )$$ e as dinâmicas $$( \dot{D} = V_l - V_f )$$ e $$( \dot{V}_f = -\frac{F_r}{m} + \frac{u}{m} )$$:
+Substituindo as derivadas parciais de $h = D - \tau_h V_f$ e as dinâmicas $\dot{D} = V_l - V_f$ e $\dot{V}_f = -\frac{F_r}{m} + \frac{u}{m}$:
 
 <div align="center">
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20%5Cdot%7Bh%7D%20%3D%20%5Ctau_h%20%5Ccdot%20%5Cfrac%7BF_r%7D%7Bm%7D%20%2B%20(V_l%20-%20V_f)%20-%20%5Ctau_h%20%5Ccdot%20%5Cfrac%7B1%7D%7Bm%7D%20u">
@@ -89,30 +89,51 @@ Para encaixar no QP, separamos o que independe do controle ( $L_fh$ ) e o que mu
 
 
 
+## 5. A Restrição da CBF no QP (A Desigualdade $\geq$)
 
----
-
-
-
-### 1.2. Restrição de Segurança (CBF)
-
-A condição para que a distância nunca se torne negativa (invariância do conjunto seguro) é:
+Substituindo $\dot{h} = L_fh + L_gh \cdot u$ na condição de invariância, obtemos a restrição final que será usada no QP:
 
 <div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20L_fh%20%2B%20L_gh%20%5Ccdot%20u%20%2B%20%5Cgamma%20h(x)%20%5Cgeq%200">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20L_fh%20%2B%20L_gh%20%5Ccdot%20u%20%2B%20%5Cgamma%20h%20%5Cgeq%200">
 </div>
-<p>
-Onde $$( \gamma > 0 )$$: Parâmetro que ajusta a "agressividade" da barreira. Quanto maior, mais cedo o sistema começa a frear para evitar a violação da segurança.
 
-<a href="modelandocbf.md">Ver modelagem do CBF.</a>
+Onde $\gamma > 0$: Parâmetro que ajusta a "agressividade" da barreira. Quanto maior, mais cedo o sistema começa a frear para evitar a violação da segurança.
 
-a CLF puxa o sistema para $$( V_d )$$, a CBF o segura para que $$( D )$$ não caia abaixo de $$( \tau_h V_f )$$, criando um equilíbrio dinâmico entre desempenho e segurança.
+**Perceba a diferença fundamental da CLF:**
+- **CLF**: $L_fV + L_gV \cdot u \leq -c_V V + \delta$ (queremos ser **menores ou iguais** a zero para estabilidade).
+- **CBF**: $L_fh + L_gh \cdot u + \gamma h \geq 0$ (queremos ser **maiores ou iguais** a zero para segurança).
+
+## 6. O Parâmetro $$( \gamma )$$ (O "Gatilho" da Segurança)
+
+Assim como $$( c_V )$$ define a agressividade da CLF, $$( \gamma )$$ define a "sensibilidade" da CBF.
+
+- **$\gamma$ alto**: O carro começa a frear **muito antes** de chegar perto do carro da frente. A segurança é priorizada, mas o carro pode ser excessivamente cauteloso, irritando os motoristas de trás.
+- **$\gamma$ baixo**: O carro só freia no **último segundo** possível. A segurança ainda é garantida, mas a frenagem será muito brusca (desconfortável e perigosa para o carro de trás).
+- **Valor típico na literatura**: Geralmente entre 1 e 5, ajustado para equilibrar conforto e segurança.
 
 
+## 7. Conexão Direta com o seu Código (`LIE_2026.m`)
+
+Toda essa dedução matemática está implementada no seu script. Veja a correspondência:
+
+| Matemática (Teoria) | Código (MATLAB) | O que faz |
+| :--- | :--- | :--- |
+| $$h = D - \tau_h V_f$ | `hacc = xr - Td*Vf` | Define a função de barreira. |
+| $$L_fh$ | `Lfhacc = transpose(gradient(hacc,[Vf;xr]))*f` | Calcula a derivada independente do controle. |
+| $$L_gh$ | `Lghacc = transpose(gradient(hacc,[Vf;xr]))*g` | Calcula o coeficiente que multiplica o controle $u$. |
 
 
+## 8. Conclusão
 
+A CBF foi definida como $h = D - \tau_h V_f$, representando a distância de segurança ajustada pelo tempo de reação do motorista. A condição de invariância do conjunto seguro, $\dot{h} + \gamma h \geq 0$, garante que o veículo nunca viole a distância mínima em relação ao líder. Separando a dinâmica em $L_fh$ e $L_gh$, obteve-se a restrição linear $L_fh + L_gh u + \gamma h \geq 0$. 
+ 
+Enquanto a CLF impõe uma desigualdade de 'menor ou igual' ($\leq$) para garantir a convergência da velocidade, a CBF impõe uma desigualdade de 'maior ou igual' ($\geq$) para garantir a manutenção da distância. O QP resolve este conflito priorizando a restrição da CBF (rígida), relaxando a CLF ($\delta$) quando necessário.
 
+**Agora você tem os dois lados da mesma moeda:** 
+- **CLF**: puxa o carro para $V_d$. 
+- **CBF**: segura o carro para que $D$ não caia abaixo de $\tau_h V_f$, criando um equilíbrio dinâmico entre desempenho e segurança.
+O **QP** (com a ajuda do $\delta$ e do $p_\delta$) é o árbitro que decide, a cada instante, qual dos dois vai vencer a queda de braço!
+Quer agora dar o próximo passo e ver como essas duas restrições se encontram dentro do **bloco do QP** (e como o algoritmo de Hildreth, do seu `QPhild.m`, resolve essa briga na prática)?
 
 
 
