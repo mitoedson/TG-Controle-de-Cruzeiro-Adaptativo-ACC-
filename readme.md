@@ -1,10 +1,15 @@
 
 # Controle de Cruzeiro Adaptativo (ACC) Baseado em Otimização de Sistemas Críticos de Segurança via CLF-CBF-QP
 
-Este repositório contém o ambiente de simulação em MATLAB/Simulink para um **Sistema Avançado de Assistência ao Condutor (ADAS)**, focando na implementação de um **Controle de Cruzeiro Adaptativo (ACC)**. O projeto diferencia-se das abordagens tradicionais ao unificar objetivos de desempenho e restrições estritas de segurança em tempo real por meio de uma formulação baseada em otimização.
+O presente repositório documenta o desenvolvimento de um Trabalho de Graduação apresentado ao curso de Engenharia de Informação da Universidade Federal do ABC (UFABC), referente ao quadrimestre 2026.2, sob orientação do Prof. Dr. Caio Chinelato.
 
-O framework matemático adota **Funções de Lyapunov de Controle (CLF)** para o rastreamento da velocidade desejada e **Funções de Barreira de Controle (CBF)** para garantir a invariância de segurança (evitar colisões), resolvidos concorrentemente via **Programação Quadrática (QP)**.
-
+O trabalho tem por objetivo investigar o problema do Controle de Cruzeiro Adaptativo (ACC) sob a perspectiva de sistemas de controle críticos de segurança, propondo a unificação de dois objetivos concorrentes: a manutenção de uma velocidade de cruzeiro desejada e a garantia de uma distância segura em relação ao veículo precedente. Para tanto, são investigadas e comparadas diferentes arquiteturas de controle fundamentadas em Funções de Lyapunov de Controle (CLF), Funções de Barreira de Controle (CBF) e Programação Quadrática (QP), a saber:
+<ul>
+<li>a formulação unificada CLF-CBF-QP, na qual desempenho e segurança são mediados em tempo real por meio de um único problema de otimização;
+<li>a arquitetura de Filtro de Segurança (Active Set Invariance Filter — ASIF), na qual um controlador nominal de desempenho é submetido a uma camada de segurança independente;
+<li>uma arquitetura de dois níveis, composta por um nível superior de decisão e um nível inferior de atuação via controle PID, com vistas a aproximar o modelo simulado de um sistema veicular real.
+</ul>
+A totalidade das simulações apresentadas foi implementada e validada em ambiente MATLAB/Simulink, com documentação detalhada da modelagem matemática, dos parâmetros de projeto adotados e dos resultados obtidos ao longo do desenvolvimento do trabalho.
 
 ## Visão Geral do Projeto
 
