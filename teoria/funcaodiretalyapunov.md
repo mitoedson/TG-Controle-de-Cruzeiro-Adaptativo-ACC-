@@ -59,9 +59,7 @@ Ao longo das décadas, o conceito original de Lyapunov (que servia apenas para *
 
 Proposta por Zartsin e popularizada por Eduardo Sontag na década de 1980, a CLF estende a teoria para sistemas com entradas de controle:
 
-
-$$\dot{x} = f(x) + g(x)u$$
-
+$\dot{x} = f(x) + g(x)u$
 
 A pergunta passa a ser: *Existe uma ação de controle $u$ capaz de tornar a derivada temporal de $V(x)$ negativa?*
 Uma função $V(x)$ é uma CLF se, para todo $x \neq 0$:
