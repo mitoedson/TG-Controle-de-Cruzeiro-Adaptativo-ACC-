@@ -50,7 +50,7 @@ Este documento descreve a evolução completa da simulação do ACC — desde a 
 
 <a href="simulacao/simulacao.md">Simulação Matlab</a>
 
-## 📂 Estrutura do Repositório
+## Estrutura do Repositório
 
 * `INIT_ACC_2026.m`: Script principal. Configura as condições iniciais ($V_{f0}$, $D_0$), executa a simulação e plota as curvas de desempenho.
 * `ACC_TESTE_2026.slx`: Modelo em Simulink contendo a malha fechada do sistema automotivo.
