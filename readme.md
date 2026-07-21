@@ -46,6 +46,7 @@ Modelagem Matemática do Veículo - Formulação do Problema de Otimização (QP
 * <a href="modelagem/qp.md">Modelagem QP</a>
 
 ## Simulação Matlab
+Este documento descreve a evolução completa da simulação do ACC — desde a primeira tentativa (arquitetura ASIF com conflito CBF×conforto) até a arquitetura de dois níveis final (Chinelato et al., 2023) — incluindo todo o processo de depuração numérica, as descobertas qualitativas sobre o comportamento das diferentes arquiteturas, e o dicionário completo de parâmetros.
 
 <a href="simulacao/simulacao.md">Simulação Matlab</a>
 
