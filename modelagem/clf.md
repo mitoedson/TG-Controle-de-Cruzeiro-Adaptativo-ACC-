@@ -96,7 +96,7 @@ Substituindo $\dot{V}_f$ pela equação do veículo, temos a derivada completa e
 </div>
 
 
-## 5. Extraindo as Derivadas de Lie ($L_fV$ e $L_gV$)
+### 5. Extraindo as Derivadas de Lie ($L_fV$ e $L_gV$)
 
 Para que o controlador (QP) consiga usar essa equação, precisamos separar a parte que **não depende** do controle $u$ (chamada de $L_fV$) e a parte que **multiplica** o controle $u$ (chamada de $L_gV$).
 
@@ -105,6 +105,19 @@ Expandindo a equação anterior:
 <div align="center">
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20%5Cdot%7BV%7D%20%3D%20%5Cunderbrace%7B%5Cleft(%20-%5Cfrac%7B2(V_f%20-%20V_d)F_r%7D%7Bm%7D%20%5Cright)%7D_%7BL_fV%7D%20%2B%20%5Cunderbrace%7B%5Cleft(%20%5Cfrac%7B2(V_f%20-%20V_d)%7D%7Bm%7D%20%5Cright)%7D_%7BL_gV%7D%20%5Ccdot%20u">
 </div>
+
+### 5.1. Derivadas de Lie da CLF
+
+Para construir a restrição linear no QP, calculamos as derivadas de Lie:
+<p>
+<div align="center">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20L_fV%20%3D%20%5Cnabla%20V%20%5Ccdot%20f(x)%20%3D%202(V_f%20-%20V_d)%20%5Ccdot%20%5Cleft(%20-%5Cfrac%7BF_r(V_f)%7D%7Bm%7D%20%5Cright)">
+</div>
+<p>
+<div align="center">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20L_gV%20%3D%20%5Cnabla%20V%20%5Ccdot%20g(x)%20%3D%202(V_f%20-%20V_d)%20%5Ccdot%20%5Cleft(%20%5Cfrac%7B1%7D%7Bm%7D%20%5Cright)">
+</div>
+
 
 Portanto, as duas partes são:
 
@@ -175,25 +188,5 @@ A relaxação $\delta$ permite que a derivada da CLF seja temporariamente positi
 $\delta$ for limitado e penalizado na função custo do QP, o erro de velocidade permanecerá uniformemente limitado. Assim que a situação de risco cessa, o QP força $\delta$ a zero, restaurando a condição de estabilidade exponencial <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20L_fV%20%2B%20L_gV%20%5Ccdot%20u%20%5Cleq%20-c_V%20V">
 ​ e garantindo a convergência da velocidade para o valor desejado.
 
-
-
-
-
-
----
-
-
-
-### 2.1. Derivadas de Lie da CLF
-
-Para construir a restrição linear no QP, calculamos as derivadas de Lie:
-<p>
-<div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20L_fV%20%3D%20%5Cnabla%20V%20%5Ccdot%20f(x)%20%3D%202(V_f%20-%20V_d)%20%5Ccdot%20%5Cleft(%20-%5Cfrac%7BF_r(V_f)%7D%7Bm%7D%20%5Cright)">
-</div>
-<p>
-<div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20L_gV%20%3D%20%5Cnabla%20V%20%5Ccdot%20g(x)%20%3D%202(V_f%20-%20V_d)%20%5Ccdot%20%5Cleft(%20%5Cfrac%7B1%7D%7Bm%7D%20%5Cright)">
-</div>
 
 
