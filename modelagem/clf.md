@@ -37,14 +37,44 @@ Reescrevendo na forma afim padrão para controle $\dot{x} = f(x) + g(x)u$:
 
 <a href="modelandosistema.md">Ver modelagem do sistema.</a>
 
+## 2. Definindo o Erro de Rastreamento
 
-## 2. Função de Lyapunov de Controle (CLF) - Desempenho
+O primeiro passo para construir qualquer função de Lyapunov para rastreamento é definir a variável que queremos levar a zero. Definimos o erro de velocidade como:
 
-O objetivo de desempenho é fazer com que a velocidade do veículo $$( V_f )$$ rastreie a velocidade desejada $$( V_d )$$. Define-se a CLF como o quadrado do erro de rastreamento:
+<div align="center">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20e%20%3D%20V_f%20-%20V_d">
+</div>
+
+O objetivo de desempenho é fazer com que a velocidade do veículo $V_f$ rastreie a velocidade desejada $V_d$. Define-se a CLF como o quadrado do erro de rastreamento:
 
 <div align="center">
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20V(x)%20%3D%20(V_f%20-%20V_d)%5E2">
 </div>
+
+<p>
+Se conseguirmos fazer com que $e \to 0$, o carro atingiu a velocidade desejada.
+
+
+
+## 3. A Função de Lyapunov Candidata 
+
+A função de Lyapunov mais clássica e intuitiva para erros de rastreamento é o **quadrado do erro**. Ela é sempre positiva (exceto na origem) e mede a "energia" do erro.
+
+<div align="center">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20V(x)%20%3D%20e%5E2%20%3D%20(V_f%20-%20V_d)%5E2">
+</div>
+
+**Verificação dos requisitos matemáticos:**
+1. **Definida Positiva**: 
+   - $V(0) = 0$ (quando $V_f = V_d$).
+   - $V(x) > 0$ para todo $V_f \neq V_d$.
+2. **Radialmente Ilimitada**: 
+   - Quando $V_f \to \infty$, $V(x) \to \infty$. Isso garante estabilidade global (não importa se o carro está a 10 m/s ou 100 m/s, a função funciona).
+
+
+
+
+
 
 ### 2.1. Derivadas de Lie da CLF
 
