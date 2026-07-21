@@ -35,7 +35,7 @@ Reescrevendo na forma afim padrão para controle $\dot{x} = f(x) + g(x)u$:
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20f(x)%20%3D%20%5Cbegin%7Bbmatrix%7D%20-%5Cfrac%7BF_r(V_f)%7D%7Bm%7D%20%5C%5C%20V_l%20-%20V_f%20%5Cend%7Bbmatrix%7D%2C%20%5Cquad%20g(x)%20%3D%20%5Cbegin%7Bbmatrix%7D%20%5Cfrac%7B1%7D%7Bm%7D%20%5C%5C%200%20%5Cend%7Bbmatrix%7D">
 </div>
 
-<a href="modelandosistema.md">Ver modelagem do sistema.</a>
+<a href="modelandosistema.md">Ir para Modelagem do sistema.</a>
 
 ## 2. Definindo o Erro de Rastreamento
 
@@ -54,9 +54,9 @@ O objetivo de desempenho é fazer com que a velocidade do veículo $V_f$ rastrei
 <p>
 Se conseguirmos fazer com que $e \to 0$, o carro atingiu a velocidade desejada.
 
-<a href="/teoria/funcaodiretalyapunov.md">Ver Função Direta de Lyapunov</a><br>
-<a href="/teoria/funcaoindiretalyapunov.md">Ver Função Indireta de Lyapunov</a><br>
-<a href="/teoria/lyapunovparaacc.md">Adaptação da Função de Lyapunov para ACC</a>
+<a href="/teoria/funcaodiretalyapunov.md">Ir para Função Direta de Lyapunov</a><br>
+<a href="/teoria/funcaoindiretalyapunov.md">Ir para Função Indireta de Lyapunov</a><br>
+<a href="/teoria/lyapunovparaacc.md">Ir para Adaptação da Função de Lyapunov para ACC</a>
 
 ## 3. A Função de Lyapunov Candidata 
 
