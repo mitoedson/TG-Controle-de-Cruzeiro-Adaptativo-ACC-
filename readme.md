@@ -56,3 +56,13 @@ Modelagem Matemática do Veículo - Formulação do Problema de Otimização (QP
 * `FUNÇÃO_CLF_CBF_QP.txt` / `fcn`: Bloco de função do MATLAB dentro do Simulink que monta as matrizes do problema de otimização ($A \cdot u \le b$) a cada instante $t$.
 * `LIE_2026.m`: Script simbólico utilizado para deduzir as equações algébricas das Derivadas de Lie do modelo.
 * `QPhild.m`: Solver analítico de Programação Quadrática baseado no algoritmo de Hildreth, dispensando o uso do `quadprog` nativo do MATLAB para maior eficiência.
+
+  
+## Referências
+
+- AMES, A. D.; GRIZZLE, J. W.; TABUADA, P. *Control barrier function based quadratic programs with application to adaptive cruise control*. IEEE CDC, 2014.
+- AMES, A. D.; XU, X.; GRIZZLE, J. W.; TABUADA, P. *Control barrier function based quadratic programs for safety critical systems*. IEEE TAC, 62(8), 2017.
+- AMES, A. D.; COOGAN, S.; EGERSTEDT, M.; NOTOMISTA, G.; SREENATH, K.; TABUADA, P. *Control barrier functions: Theory and applications*. European Control Conference (ECC), 2019.
+- GURRIET, T.; SINGLETARY, A.; REHER, J.; CIARLETTA, L.; FERON, E.; AMES, A. D. *Towards a framework for realizable safety critical control through active set invariance*. ICCPS, 2018. — fonte da arquitetura ASIF.
+- CHINELATO, C. I. G.; ANGÉLICO, B. A.; JUSTO, J. F.; LAGANÁ, A. A. M. *Design of adaptive cruise control with control barrier function and model-free control*. Journal of Control, Automation and Electrical Systems, 34, 2023. — fonte da arquitetura de dois níveis.
+
