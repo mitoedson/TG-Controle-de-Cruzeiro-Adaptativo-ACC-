@@ -1,7 +1,5 @@
 # Modelagem Matemática do Veículo - Formulação do Problema de Otimização (QP)
 
-<a href=modelandoqp.md>Modelagem</a>
-
 O controlador final é obtido resolvendo a seguinte Programação Quadrática (QP) a cada instante de tempo:
 
 <div align="center">
@@ -79,7 +77,7 @@ Reescrevendo para encaixar no formato $A z \leq b$ (multiplicando por -1 para in
 
 **Linha da CBF na matriz $A$:** $[-L_gh, \ 0]$
 
-### Limites de Atuação (Opcional, mas recomendado para conforto)
+**Limites de Atuação (Opcional, adicionando conforto)**
 
 <div align="center">
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20u_%7B%5Cmin%7D%20%5Cleq%20u%20%5Cleq%20u_%7B%5Cmax%7D">
