@@ -1,6 +1,6 @@
 # Modelagem Matemática e Análise das EDOs do Sistema ACC
 
-Dduzindo passo a passo das Equações Diferenciais Ordinárias (EDOs) que modelam a dinâmica longitudinal do veículo no problema de Controle de Cruzeiro Adaptativo (ACC), bem como a análise matemática dessas equações para fins de controle.
+Deduzindo passo a passo as Equações Diferenciais Ordinárias (EDOs) que modelam a dinâmica longitudinal do veículo no problema de Controle de Cruzeiro Adaptativo (ACC), bem como a análise matemática dessas equações para fins de controle.
 
 ## 1. Definição das Variáveis de Estado
 
