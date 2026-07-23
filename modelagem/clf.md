@@ -162,7 +162,7 @@ A condição de estabilidade exponencial é imposta pela desigualdade:
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20L_fV%20%2B%20L_gV%20%5Ccdot%20u%20%5Cleq%20-c_V%20V(x)%20%2B%20%5Cdelta">
 </div>
 
-$\delta \$: Variável de relaxação (slack), que permite sacrificar a estabilidade temporariamente para priorizar a segurança.
+Onde $\delta \$ é a variável de relaxação (slack), que permite sacrificar a estabilidade temporariamente para priorizar a segurança.
 
 Se a restrição acima for muito rígida, pode não existir solução quando a segurança (CBF) exigir frenagem forte. Para resolver isso, a teoria introduz a **variável de relaxação ($\delta$)**
 
