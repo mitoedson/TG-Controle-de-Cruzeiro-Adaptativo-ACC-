@@ -13,23 +13,23 @@ Considere um sistema não-linear autônomo na forma:
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20%5Cdot%7Bx%7D%20%3D%20f(x)">
 </div>
 
-onde `x = 0` é um ponto de equilíbrio (ou seja, `f(0) = 0`) e `f` é continuamente diferenciável.
+onde $x = 0$ é um ponto de equilíbrio, ou seja, $f(0) = 0$, e $f$ é continuamente diferenciável.
 
 O método consiste em:
 
-1.  **Linearizar o sistema** em torno do ponto de equilíbrio `x = 0` usando a série de Taylor (desprezando termos de ordem superior):
+1.  **Linearizar o sistema** em torno do ponto de equilíbrio $x = 0$ usando a série de Taylor (desprezando termos de ordem superior):
   
 <div align="center">
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20%5Cdot%7Bx%7D%20%5Capprox%20A%20%5Ccdot%20x">
 </div>
 
-  onde `A` é a **matriz Jacobiana** avaliada no ponto de equilíbrio:
+  onde $A$ é a **matriz Jacobiana** avaliada no ponto de equilíbrio:
 
 <div align="center">
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20A%20%3D%20%5Cleft.%20%5Cfrac%7B%5Cpartial%20f%7D%7B%5Cpartial%20x%7D%20%5Cright%7C_%7Bx%20%3D%200%7D">
 </div>
 
-2.  **Analisar os autovalores** (`λ_i`) da matriz `A`.
+2.  **Analisar os autovalores** $λ_i$ da matriz $A$.
 
 3.  **Teorema Indireto de Lyapunov**:
     - Se **todos** os autovalores de `A` têm **parte real estritamente negativa** (`Re(λ_i) < 0`), então o ponto de equilíbrio `x = 0` do sistema não-linear original é **assintoticamente estável**.
