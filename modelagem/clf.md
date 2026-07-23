@@ -143,13 +143,15 @@ Para garantir que o erro de velocidade caia exponencialmente para zero (ou seja,
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20%5Cdot%7BV%7D%20%5Cleq%20-c_V%20%5Ccdot%20V">
 </div>
 
+Onde $c_V > 0$ é a **taxa de convergência (ou taxa de decaimento exponencial)**.  
+
 Substituindo $\dot{V}$ pela forma $L_fV + L_gV \cdot u$, obtemos a **restrição linear** que será usada no QP:
 
 <div align="center">
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20L_fV%20%2B%20L_gV%20%5Ccdot%20u%20%5Cleq%20-c_V%20V">
 </div>
 
-Onde $c_V > 0$ é a **taxa de convergência (ou taxa de decaimento exponencial)**. Quanto maior o $c_V$, mais rápido o carro acelera/freia para atingir a velocidade desejada, e quanto menor o $c_V$, a aceleração é mais lenta. A taxa de convergência deve ser configurada para encontrar um valor intermediário. 
+Quanto maior o $c_V$, mais rápido o carro acelera/freia para atingir a velocidade desejada, e quanto menor o $c_V$, a aceleração é mais lenta. A taxa de convergência deve ser configurada para encontrar um valor intermediário. 
 
 $\delta \$: Variável de relaxação (slack), que permite sacrificar a estabilidade temporariamente para priorizar a segurança.
 
