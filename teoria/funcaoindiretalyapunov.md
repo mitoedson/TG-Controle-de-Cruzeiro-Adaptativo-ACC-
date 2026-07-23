@@ -50,8 +50,6 @@ O Método Indireto garante estabilidade **apenas localmente**.
 - Se o carro estiver a 10 m/s e a referência for 30 m/s, a linearização feita em torno de 30 m/s **não é válida** para 10 m/s. A prova de estabilidade "quebra".
 - **Pior no ACC com CBF**: Quando a restrição de segurança atua (frenagem brusca), o sistema pode sair completamente da região onde a linearização é válida. Não é possível provar matematicamente que o sistema retornará ao equilíbrio.
 
----
-
 ## 3. Por que o Método Direto (CLF) é Melhor Aqui?
 
 No seu trabalho, você utiliza o **Método Direto** com a CLF `V = (Vf - Vd)²` e relaxação via QP.
@@ -64,13 +62,12 @@ No seu trabalho, você utiliza o **Método Direto** com a CLF `V = (Vf - Vd)²` 
 | **Manuseio de Restrições (CBF)** | Não lida bem. A segurança quebra a linearização. | Lida perfeitamente via QP. Segurança é priorizada. |
 | **Esforço Computacional** | Muito baixo (multiplicação de ganhos fixos). | Médio (resolução do QP via Hildreth em tempo real). |
 
----
 
-## 4. Conclusão para seu TCC
+## Conclusão
 
-> "O Método Indireto de Lyapunov, embora amplamente utilizado em sistemas lineares, apresenta uma limitação fundamental para este trabalho: sua validade é estritamente local. Dado que o veículo pode operar em uma ampla faixa de velocidades e que a atuação da CBF pode levar o sistema para regiões distantes do equilíbrio, a linearização não seria capaz de garantir formalmente a estabilidade global. 
-> 
-> Por este motivo, optou-se pelo **Método Direto de Lyapunov**, que, através da função `V = (Vf - Vd)²`, fornece uma prova de estabilidade válida para todo o domínio de operação, sendo perfeitamente compatível com a estrutura de otimização (QP) utilizada para mediar o conflito entre desempenho e segurança."
+O Método Indireto de Lyapunov, embora amplamente utilizado em sistemas lineares, apresenta uma limitação fundamental para este trabalho: sua validade é estritamente local. Dado que o veículo pode operar em uma ampla faixa de velocidades e que a atuação da CBF pode levar o sistema para regiões distantes do equilíbrio, a linearização não seria capaz de garantir formalmente a estabilidade global. 
+ 
+Por este motivo, optou-se pelo **Método Direto de Lyapunov**, que, através da função `V = (Vf - Vd)²`, fornece uma prova de estabilidade válida para todo o domínio de operação, sendo perfeitamente compatível com a estrutura de otimização (QP) utilizada para mediar o conflito entre desempenho e segurança.
 
 
 
