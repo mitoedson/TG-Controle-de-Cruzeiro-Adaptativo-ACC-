@@ -153,9 +153,6 @@ Substituindo $\dot{V}$ pela forma $L_fV + L_gV \cdot u$, obtemos a **restrição
 
 Quanto maior o $c_V$, mais rápido o carro acelera/freia para atingir a velocidade desejada, e quanto menor o $c_V$, a aceleração é mais lenta. A taxa de convergência deve ser configurada para encontrar um valor intermediário. 
 
-$\delta \$: Variável de relaxação (slack), que permite sacrificar a estabilidade temporariamente para priorizar a segurança.
-
-
 
 ## 7. A Relaxação ($\delta$) e sua relação com a segurança
 
@@ -164,6 +161,8 @@ A condição de estabilidade exponencial é imposta pela desigualdade:
 <div align="center">
   <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20L_fV%20%2B%20L_gV%20%5Ccdot%20u%20%5Cleq%20-c_V%20V(x)%20%2B%20%5Cdelta">
 </div>
+
+$\delta \$: Variável de relaxação (slack), que permite sacrificar a estabilidade temporariamente para priorizar a segurança.
 
 Se a restrição acima for muito rígida, pode não existir solução quando a segurança (CBF) exigir frenagem forte. Para resolver isso, a teoria introduz a **variável de relaxação ($\delta$)**
 
