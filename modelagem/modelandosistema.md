@@ -67,7 +67,7 @@ Onde:
 Substituindo $F_r$ nas equações, obtemos o sistema de duas EDOs de primeira ordem acopladas:
 
 <div align="center">
-  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bblack%7D%20%5Cbegin%7Baligned%7D%20%5Cdot%7BV%7D_f%20%26%3D%20-%5Cfrac%7Bf_0%20%2B%20f_1%20V_f%20%2B%20f_2%20V_f%5E2%7D%7Bm%7D%20%2B%20%5Cfrac%7B1%7D%7Bm%7D%20u%20%5C%5C%20%5Cdot%7BD%7D%20%26%3D%20V_l%20-%20V_f%20%5Cend%7Baligned%7D">
+  <img src="https://latex.codecogs.com/png.image?%5Ccolor%7Bwhite%7D%20%5Cbegin%7Baligned%7D%20%5Cdot%7BV%7D_f%20%26%3D%20-%5Cfrac%7Bf_0%20%2B%20f_1%20V_f%20%2B%20f_2%20V_f%5E2%7D%7Bm%7D%20%2B%20%5Cfrac%7B1%7D%7Bm%7D%20u%20%5C%5C%20%5Cdot%7BD%7D%20%26%3D%20V_l%20-%20V_f%20%5Cend%7Baligned%7D">
 </div>
 
 ## 6. Destrinchando as EDOs: Passo a Passo para Análise
